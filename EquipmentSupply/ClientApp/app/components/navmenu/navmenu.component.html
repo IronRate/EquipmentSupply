@@ -12,7 +12,13 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
-                <li [routerLinkActive]="['link-active']">
+                <li *ngFor="let item of menuItems" [routerLinkActive]="['link-active']">
+                    <a [routerLink]="[item.link]">
+                        <span [class]="item.icon"></span>&nbsp;{{item.name}}
+                    </a>
+                </li>
+
+                <!--<li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
@@ -27,6 +33,11 @@
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data
                     </a>
                 </li>
+                <li [routerLinkActive]="['providers']">
+                    <a [routerLink]="['/providers']">
+                        <span class='glyphicon glyphicon-th-list'></span>Провайдеры
+                    </a>
+                </li>-->
             </ul>
         </div>
     </div>
