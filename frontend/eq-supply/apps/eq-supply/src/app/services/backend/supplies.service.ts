@@ -13,7 +13,7 @@ export interface ISupplyItem {
 
 /**Поставки */
 @Injectable()
-export class SuppliesService extends BackendRepository<ISupplyItem, string> {
+export class SuppliesRepository extends BackendRepository<ISupplyItem, string> {
   constructor(http: HttpClient) {
     super(http, 'api/supplies');
   }

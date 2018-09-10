@@ -1,4 +1,4 @@
-import { SuppliesService } from './../../services/backend/supplies.service';
+import { SuppliesRepository } from './../../services/backend/supplies.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/takeUntil';
 export class SuppliesComponent implements OnInit,OnDestroy {
 
   private ngUnsubscribe:Subject<void>=new Subject();
-  constructor(private supplies:SuppliesService) { }
+  constructor(private supplies:SuppliesRepository) { }
 
   ngOnInit() {
   }

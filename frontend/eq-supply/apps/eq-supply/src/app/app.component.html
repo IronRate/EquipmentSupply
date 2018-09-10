@@ -1,15 +1,14 @@
+<div fxLayout="column" style="width:100%;height:100vh">
+  <!-- <arm-header></arm-header> -->
+  <div fxLayout="row" style="width:100%;height:100vh">
+    <div fxLayout="row" fxFlex="18" class="mat-elevation-z10">
+      <app-main-menu (itemClick)="onMenuClick($event)" fxFlex="100"></app-main-menu>
+    </div>
+    <div fxLayout="column" fxFlex="82" style="margin:8px">
+      <div style="margin-top:8px;overflow:auto;">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
 
-<div style="text-align:center">
-  <h1>Welcome to {{title}}!</h1>
-  <img width="300" src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png">
 </div>
-
-<h2>This is an Angular CLI app built with Nrwl Nx!</h2>
-
-An open source toolkit for enterprise Angular applications.
-
-Nx is designed to help you create and build enterprise grade Angular applications. It provides an opinionated approach to application project structure and patterns.
-
-<h2>Quick Start & Documentation</h2>
-
-<a href="https://nrwl.io/nx">Watch a 5-minute video on how to get started with Nx.</a>

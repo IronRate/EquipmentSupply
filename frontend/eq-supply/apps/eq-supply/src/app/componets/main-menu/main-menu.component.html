@@ -1,3 +1,16 @@
-<p>
-  main-menu works!
-</p>
+<mat-accordion style="opacity:0.5" class="main-menu">
+  <mat-expansion-panel *ngFor="let item of items" [expanded]="item.expanded" (opened)="onOpen(item)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{item.text}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ul>
+      <li *ngFor="let subItem of item.items" (click)="onMenuClick(subItem)" style="width:100%" [ngClass]="{'selected':subItem.name==selectedItem?.name}">
+        <i [ngClass]="item.icon"></i>
+        <a>{{subItem.text}}</a>
+      </li>
+    </ul>
+  </mat-expansion-panel>
+</mat-accordion>
+

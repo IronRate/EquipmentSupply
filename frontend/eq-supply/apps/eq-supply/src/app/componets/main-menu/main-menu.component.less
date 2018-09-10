@@ -1,0 +1,121 @@
+@text-color: white;
+.mat-expansion-panel-header-title,
+.mat-expansion-indicator::after,
+.mat-expansion-panel-header-description,
+span.mat-expansion-indicator {
+  color: @text-color !important;
+}
+
+.mat-expansion-indicator::after {
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  content: '';
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  vertical-align: middle;
+}
+
+
+:host {
+  .mat-expansion-panel {
+    overflow: hidden;
+    background-color: rgb(55, 55, 65);
+    color: @text-color;
+  }
+
+  overflow: hidden;
+  background-color: rgb(55, 55, 65);
+  color: @text-color;
+  mat-list-item {
+    color: @text-color;
+  }
+
+  mat-list-item i {
+    width: 32px;
+  }
+
+  mat-list {
+    margin: 0;
+    padding-left: 16px;
+    & > mat-list-item {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      list-style-type: none;
+      padding: 8px;
+      &.selected {
+        background-color: white;
+        color: rgb(55, 55, 65);
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: lightgray;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+
+
+
+@text-color: white;
+.mat-expansion-panel-header-title,
+.mat-expansion-indicator::after,
+.mat-expansion-panel-header-description,
+span.mat-expansion-indicator {
+  color: @text-color !important;
+}
+
+.mat-expansion-indicator::after {
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  content: '';
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  vertical-align: middle;
+}
+
+.mat-expansion-indicator::after,
+.mat-expansion-panel-header-description {
+  color: rgba(241, 3, 3, 0.54) !important;
+}
+:host {
+  .mat-expansion-panel {
+    overflow: hidden;
+    background-color: rgb(55, 55, 65);
+    color: @text-color;
+  }
+
+  overflow: hidden;
+  background-color: rgb(55, 55, 65);
+  color: @text-color;
+  mat-list-item {
+    color: @text-color;
+  }
+  li:hover {
+    cursor: pointer;
+    background-color: lightgray;
+    opacity: 0.8;
+  }
+
+  li.selected {
+    background-color: white;
+    color: rgb(55, 55, 65);
+  }
+  mat-list-item i {
+    width: 32px;
+  }
+
+  ul {
+    margin:0;
+    padding-left: 16px;
+    & > li {
+      list-style-type: none;
+      padding: 8px;
+    }
+  }
+}
+
