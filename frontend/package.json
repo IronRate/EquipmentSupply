@@ -57,7 +57,7 @@
     "ngx-mask": "2.5.3",
     "ag-grid": "17.1.1",
     "ag-grid-angular": "17.1.0",
-    "bootstrap-css-only":"3.3.7"
+    "bootstrap-css-only": "3.3.7"
   },
   "devDependencies": {
     "@angular/cli": "1.7.1",
