@@ -66,6 +66,8 @@ import {
   MomentDateAdapter
 } from '@angular/material-moment-adapter';
 import { ProvidersRepository } from './services/backend/providers.servise';
+import { ProvidersGridComponent } from './componets/providers-grid/providers-grid.component';
+import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-grid.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { ProvidersRepository } from './services/backend/providers.servise';
     ProviderEditDialogComponent,
     SupplyEditDialogComponent,
     EquipmentsComponent,
-    EquipmentEditDialogComponent
+    EquipmentEditDialogComponent,
+    ProvidersGridComponent,
+    EquipmentsGridComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +111,7 @@ import { ProvidersRepository } from './services/backend/providers.servise';
     MatExpansionModule,
     MatProgressBarModule,
     NgxMaskModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   providers: [
     SuppliesRepository,

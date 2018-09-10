@@ -23,7 +23,7 @@
               "apps/eq-supply/src/assets"
             ],
             "styles": [
-              "apps/eq-supply/src/styles.css"
+              "apps/eq-supply/src/styles.less"
             ],
             "scripts": []
           },
