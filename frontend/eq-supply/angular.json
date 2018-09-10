@@ -7,7 +7,7 @@
       "root": "apps/eq-supply/",
       "sourceRoot": "apps/eq-supply/src",
       "projectType": "application",
-      "prefix": "apps/eq-supply",
+      "prefix": "app",
       "schematics": {},
       "architect": {
         "build": {
