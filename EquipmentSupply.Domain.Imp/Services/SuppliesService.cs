@@ -6,11 +6,16 @@ using EquipmentSupply.Domain.Models.DB;
 
 namespace EquipmentSupply.Domain.Imp.Services
 {
+    /// <summary>
+    /// Сервис работы с поставками
+    /// </summary>
     public class SuppliesService : Domain.Contracts.Services.ISupplyService
     {
+        #region Fields
+
         private readonly Contracts.Repositories.DB.IDbUnitOfWork unitOfWork;
 
-
+        #endregion
 
         #region Constructor
 
@@ -46,11 +51,22 @@ namespace EquipmentSupply.Domain.Imp.Services
             {
                 throw new ArgumentNullException(nameof(supply));
             }
+            this.unitOfWork.Supplies.Modify(supply);
+            this.unitOfWork.NotificationQueues.Add(new NotificationQueue(supply, Enums.OperationType.Modify));
+            await this.unitOfWork.CommitAsync();
         }
 
         public async Task RemoveAsync(Supply supply)
         {
-            throw new NotImplementedException();
+            if (supply == null)
+            {
+                throw new ArgumentNullException(nameof(supply));
+            }
+            //Делаем отметку об удалении
+            supply.IsDelete = true;
+            this.unitOfWork.Supplies.Modify(supply);
+            this.unitOfWork.NotificationQueues.Add(new NotificationQueue(supply, Enums.OperationType.Delete));
+            await this.unitOfWork.CommitAsync();
         }
 
         #endregion
