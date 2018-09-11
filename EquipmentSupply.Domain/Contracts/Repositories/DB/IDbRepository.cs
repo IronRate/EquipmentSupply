@@ -10,28 +10,89 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
     {
 
         //Синхронные запросы
+
+        /// <summary>
+        /// Вернет сущность по идентификатору
+        /// </summary>
+        /// <param name="id">идентификатор</param>
+        /// <returns></returns>
         TEntity Get(TKey id);
 
+        /// <summary>
+        /// Вернет список всех сущностей из хранилища
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<TEntity> GetAll();
+
+        /// <summary>
+        /// Произведет поиск сущностей в хранилище по критерию
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
+        /// <summary>
+        /// Добавит новую сущность в хранилище
+        /// </summary>
+        /// <param name="entity"></param>
         void Add(TEntity entity);
+
+        /// <summary>
+        /// Добавит несколько сущностей в хранилище
+        /// </summary>
+        /// <param name="entities"></param>
         void AddRange(IEnumerable<TEntity> entities);
 
+        /// <summary>
+        /// Помещает сущность как измененую
+        /// </summary>
+        /// <param name="entity"></param>
         void Modify(TEntity entity);
 
-
+        /// <summary>
+        /// Помечает сущность как удаленную
+        /// </summary>
+        /// <param name="entity"></param>
         void Remove(TEntity entity);
+
+        /// <summary>
+        /// Помечает список сущностей как удаленные
+        /// </summary>
+        /// <param name="entities"></param>
         void RemoveRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// Помечает список сущностей как удаленные
+        /// </summary>
+        /// <param name="entities"></param>
         void RemoveRange(ICollection<TEntity> entities);
+
+        /// <summary>
+        /// Помечает сущность как удаленную, находя ее в хранилище по ключу
+        /// </summary>
+        /// <param name="id"></param>
         void Remove(TKey id);
 
         //Асинхронные запросы
 
-
+        /// <summary>
+        /// Вернет сущность по идентификатору
+        /// </summary>
+        /// <param name="id">идентификатор</param>
+        /// <returns></returns>
         Task<TEntity> GetAsync(TKey id);
 
+        /// <summary>
+        /// Вернте все сущности из хранилища
+        /// </summary>
+        /// <returns></returns>
         Task<IEnumerable<TEntity>> GetAllAsync();
+
+        /// <summary>
+        /// Произведет поиск сущностей по критерию
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
 
         //Task AddAsync(TEntity entity);
@@ -44,7 +105,7 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         //Task RemoveAsync(TKey id);
 
         /// <summary>
-        /// Количество записией
+        /// Вернет количество записией
         /// </summary>
         /// <returns></returns>
         Task<int> CountAsync();

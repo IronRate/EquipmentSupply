@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using EquipmentSupply.Domain.Models;
 using EquipmentSupply.Domain.Models.DB;
 
 namespace EquipmentSupply.Domain.Imp.Services
@@ -45,12 +46,33 @@ namespace EquipmentSupply.Domain.Imp.Services
             return supply.Id;
         }
 
+        public Task<IEnumerable<Supply>> GetAllAsync()
+        {
+            return unitOfWork.Supplies.GetAllAsync();            
+        }
+
+        public Task<Supply> GetAsync(long id)
+        {
+            return unitOfWork.Supplies.GetAsync(id);
+        }
+
+        public Task<IEnumerable<Supply>> GetAsync(DatePeriod datePeriod)
+        {
+            return unitOfWork.Supplies.FindAsync(x => x.ProvideDate >= datePeriod.DateTimeFrom && x.ProvideDate <= datePeriod.DateTimeTo);
+        }
+
         public async Task ModifyAsync(Supply supply)
         {
             if (supply == null)
             {
                 throw new ArgumentNullException(nameof(supply));
             }
+
+            //Запрещаем модифицировать удаленную поставку
+            if (supply.IsDelete) {
+                throw new InvalidOperationException("Операция редактирования отменена. Запрещено модифицировать удаленную поставку");
+            }
+
             this.unitOfWork.Supplies.Modify(supply);
             this.unitOfWork.NotificationQueues.Add(new NotificationQueue(supply, Enums.OperationType.Modify));
             await this.unitOfWork.CommitAsync();
