@@ -40,6 +40,12 @@ namespace EquipmentSupply.DAL.Contexts
         /// </summary>
         public DbSet<Domain.Models.DB.EquipmentType> EquipmentTypes { get; set; }
 
+
+        /// <summary>
+        /// Очереь нотификаций
+        /// </summary>
+        public DbSet<Domain.Models.DB.NotificationQueue> NotificationQueues { get; set; }
+
         #endregion
     }
 }
