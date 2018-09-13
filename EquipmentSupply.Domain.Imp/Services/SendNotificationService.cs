@@ -22,7 +22,7 @@ namespace EquipmentSupply.Domain.Imp.Services
         {
             var notifications=await unitOfWork.NotificationQueues.GetReadyForSendingAsync(20);
             if (notifications != null) {
-
+                )
             }
             
         }
