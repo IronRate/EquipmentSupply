@@ -36,7 +36,7 @@ namespace EquipmentSupply.API
             services.AddScoped<Domain.Contracts.Repositories.DB.INotificationQueueRepository, DAL.Repositories.NotificationQueueRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.IProvidersRepository, DAL.Repositories.ProvidersRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesRepository, DAL.Repositories.SuppliesRepository>();
-            services.AddScoped<Domain.Contracts.Services.ISendNotificationService, Domain.Imp.Services.SendNotificationService>();
+            services.AddScoped<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
             services.AddScoped<Domain.Contracts.Repositories.IConfigRepository,>();
 
             //Настройка нативного хоста

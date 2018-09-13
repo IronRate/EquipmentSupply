@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace EquipmentSupply.Domain.Imp.Services
 {
-    public class SendNotificationService : Domain.Contracts.Services.ISendNotificationService
+    public class NotificationWorkerService : Domain.Contracts.Services.INotificationWorkerService
     {
         private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
         private readonly Contracts.Repositories.IConfigRepository configRepository;
 
-        public SendNotificationService(
+        public NotificationWorkerService(
             Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork,
             Domain.Contracts.Repositories.IConfigRepository configRepository
             )

@@ -9,13 +9,13 @@ namespace EquipmentSupply.API.Services
 {
     public class NotificationSenderHost : IHostedService, IDisposable
     {
-        private readonly Domain.Contracts.Services.ISendNotificationService sendNotificationService;
+        private readonly Domain.Contracts.Services.INotificationWorkerService sendNotificationService;
         private readonly System.Timers.Timer _timer;
         private bool _isDisposed = false;
 
         #region Constructor
 
-        public NotificationSenderHost(Domain.Contracts.Services.ISendNotificationService sendNotificationService)
+        public NotificationSenderHost(Domain.Contracts.Services.INotificationWorkerService sendNotificationService)
         {
             this.sendNotificationService = sendNotificationService;
 

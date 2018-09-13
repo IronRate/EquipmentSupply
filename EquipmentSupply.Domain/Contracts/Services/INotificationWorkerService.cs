@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EquipmentSupply.Domain.Contracts.Services
 {
-    public interface ISendNotificationService
+    public interface INotificationWorkerService
     {
         /// <summary>
         /// Отправка сообщения
