@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EquipmentSupply.Domain.Contracts.Repositories.DB
 {
-    public interface IDbUnitOfWork : IUnitOfWork
+    public interface ISuppliesbUnitOfWork : IUnitOfWork
     {
         /// <summary>
         /// Поставки

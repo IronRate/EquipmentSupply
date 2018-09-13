@@ -14,13 +14,13 @@ namespace EquipmentSupply.Domain.Imp.Services
     {
         #region Fields
 
-        private readonly Contracts.Repositories.DB.IDbUnitOfWork unitOfWork;
+        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
 
         #endregion
 
         #region Constructor
 
-        public SuppliesService(Domain.Contracts.Repositories.DB.IDbUnitOfWork unitOfWork)
+        public SuppliesService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
@@ -48,12 +48,12 @@ namespace EquipmentSupply.Domain.Imp.Services
 
         public Task<IEnumerable<Supply>> GetAllAsync()
         {
-            return unitOfWork.Supplies.GetAllAsync();            
+            return unitOfWork.Supplies.GetAllExtendedAsync();            
         }
 
         public Task<Supply> GetAsync(long id)
         {
-            return unitOfWork.Supplies.GetAsync(id);
+            return unitOfWork.Supplies.GetExtendedAsync(id);
         }
 
         public Task<IEnumerable<Supply>> GetAsync(DatePeriod datePeriod)

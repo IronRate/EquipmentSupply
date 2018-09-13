@@ -24,8 +24,16 @@ namespace EquipmentSupply.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=;Trusted_Connection=True;";
-            services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesContext>(options => options.UseSqlServer(connection));
+            
+            services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SuppliesContext")));
+            
+
+            services.AddScoped<Domain.Contracts.Services.ISupplyService, Domain.Imp.Services.SuppliesService>();
+            services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork, DAL.UnitOfWorks.SuppliesUnitOfWork>();
+            services.AddScoped<Domain.Contracts.Repositories.DB.IEqupmentTypesRepository, DAL.Repositories.EquipmentTypesRepository>();
+            services.AddScoped<Domain.Contracts.Repositories.DB.INotificationQueueRepository, DAL.Repositories.NotificationQueueRepository>();
+            services.AddScoped<Domain.Contracts.Repositories.DB.IProvidersRepository, DAL.Repositories.ProvidersRepository>();
+            services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesRepository, DAL.Repositories.SuppliesRepository>();
             
             services.AddMvc();
         }

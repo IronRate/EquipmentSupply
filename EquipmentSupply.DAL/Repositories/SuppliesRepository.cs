@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EquipmentSupply.DAL.Contexts;
 using EquipmentSupply.Domain.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentSupply.DAL.Repositories
 {
@@ -20,17 +21,34 @@ namespace EquipmentSupply.DAL.Repositories
 
         public async Task<IEnumerable<Supply>> GetAllExtendedAsync()
         {
-            return context.Supplies.Select(x => new Supply
+            return await context.Supplies.Select(x => new Supply
             {
                 Count = x.Count,
-                EquipmentTypeId=x.EquipmentTypeId,
-                EquipmentTypeName=x.EquipmentTypeName,
-                Id=x.Id,
-                IsDelete=x.IsDelete,
-                ProvideDate=x.ProvideDate,
-                ProviderId=x.ProviderId,
-                ProviderName=x.ProviderName
-            });
+                EquipmentTypeId = x.EquipmentTypeId,
+                EquipmentTypeName = x.EquipmentTypeName,
+                Id = x.Id,
+                IsDelete = x.IsDelete,
+                ProvideDate = x.ProvideDate,
+                ProviderId = x.ProviderId,
+                ProviderName = x.ProviderName
+            }).ToListAsync();
+        }
+
+        public Task<Supply> GetExtendedAsync(long id)
+        {
+            return context.Supplies
+                .Where(x => x.Id == id)
+                .Select(x => new Supply
+                {
+                    Count = x.Count,
+                    EquipmentTypeId = x.EquipmentTypeId,
+                    EquipmentTypeName = x.EquipmentTypeName,
+                    Id = x.Id,
+                    IsDelete = x.IsDelete,
+                    ProvideDate = x.ProvideDate,
+                    ProviderId = x.ProviderId,
+                    ProviderName = x.ProviderName
+                }).FirstOrDefaultAsync();
         }
     }
 }
