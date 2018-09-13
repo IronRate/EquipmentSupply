@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EquipmentSupply.DAL.Mappings
 {
-    public class NotoficationQueueMapping : IEntityTypeConfiguration<Domain.Models.DB.NotificationQueue>
+    public class NotificationQueueMapping : IEntityTypeConfiguration<Domain.Models.DB.NotificationQueue>
     {
         public void Configure(EntityTypeBuilder<NotificationQueue> builder)
         {

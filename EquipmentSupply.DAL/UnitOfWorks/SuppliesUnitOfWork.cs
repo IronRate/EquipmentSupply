@@ -13,6 +13,7 @@ namespace EquipmentSupply.DAL.UnitOfWorks
         #region Fields
 
         private readonly DbContext _context;
+        private bool _disposed = false;
 
         private ISuppliesRepository _supplies;
         private IEqupmentTypesRepository _equpmentTypes;
@@ -44,7 +45,20 @@ namespace EquipmentSupply.DAL.UnitOfWorks
 
         public void Dispose()
         {
-            _context.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            _disposed = true;
         }
 
         public void Rollback()
