@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using EquipmentSupply.DAL.Contexts;
+using EquipmentSupply.Domain.Models.DB;
 
 namespace EquipmentSupply.DAL.Repositories
 {
@@ -13,6 +16,21 @@ namespace EquipmentSupply.DAL.Repositories
         /// <param name="context">контекст</param>
         public SuppliesRepository(DbSuppliesContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<Supply>> GetAllExtendedAsync()
+        {
+            return context.Supplies.Select(x => new Supply
+            {
+                Count = x.Count,
+                EquipmentTypeId=x.EquipmentTypeId,
+                EquipmentTypeName=x.EquipmentTypeName,
+                Id=x.Id,
+                IsDelete=x.IsDelete,
+                ProvideDate=x.ProvideDate,
+                ProviderId=x.ProviderId,
+                ProviderName=x.ProviderName
+            });
         }
     }
 }

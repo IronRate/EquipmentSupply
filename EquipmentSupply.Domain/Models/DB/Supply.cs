@@ -40,19 +40,29 @@ namespace EquipmentSupply.Domain.Models.DB
         public long EquipmentTypeId { get; set; }
 
         /// <summary>
+        /// Наименование вида оборудования
+        /// </summary>
+        public string EquipmentTypeName { get; set; }
+
+        /// <summary>
+        /// Наименование поставщика
+        /// </summary>
+        public string ProviderName { get; set; }
+
+        /// <summary>
         /// Поставщик
         /// </summary>
         public virtual Provider Provider { get; set; }
 
         /// <summary>
-        /// Тип оборудования
+        /// Вид оборудования
         /// </summary>
         public virtual EquipmentType EquipmentType { get; set; }
+
 
         /// <summary>
         /// Нотификации по данной поставке
         /// </summary>
         public virtual ICollection<NotificationQueue> Notifications {get;set;}
-
     }
 }
