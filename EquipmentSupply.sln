@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentSupply.API", "Equi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{59B8F17A-FF09-46F7-8C70-D5CD05F5D246}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquipmentSupply.Domain.Imp", "EquipmentSupply.Domain.Imp\EquipmentSupply.Domain.Imp.csproj", "{5E93B821-889D-4A9F-B769-869C87057A96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentSupply.Domain.Imp", "EquipmentSupply.Domain.Imp\EquipmentSupply.Domain.Imp.csproj", "{5E93B821-889D-4A9F-B769-869C87057A96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

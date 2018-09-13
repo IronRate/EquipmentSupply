@@ -12,7 +12,7 @@ namespace EquipmentSupply.DAL.Mappings
         public void Configure(EntityTypeBuilder<EquipmentType> builder)
         {
             builder.HasIndex(X => X.Id);
-            builder.HasMany(x => x.Supplies).WithOne(x => x.EquipmentType);
+            builder.HasMany(x => x.Supplies);
         }
     }
 }

@@ -12,7 +12,6 @@ namespace EquipmentSupply.DAL.Mappings
         public void Configure(EntityTypeBuilder<NotificationQueue> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Supply);
         }
     }
 }

@@ -12,8 +12,8 @@ namespace EquipmentSupply.DAL.Mappings
         public void Configure(EntityTypeBuilder<Supply> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.OwnsOne(x => x.EquipmentType);
-            builder.OwnsOne(x => x.Provider);
+            builder.HasOne(x => x.EquipmentType);
+            builder.HasOne(x => x.Provider);
             builder.HasMany(x => x.Notifications).WithOne(x=>x.Supply);
             builder.Ignore(x => x.ProviderName);
             builder.Ignore(x => x.EquipmentTypeName);
