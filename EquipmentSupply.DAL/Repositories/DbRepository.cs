@@ -30,10 +30,7 @@ namespace EquipmentSupply.DAL.Repositories
 
         public async Task AddAsync(TEntity entity)
         {
-            await Task.Run(() =>
-            {
-                context.Set<TEntity>().Add(entity);
-            });
+            await context.Set<TEntity>().AddAsync(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
@@ -43,10 +40,7 @@ namespace EquipmentSupply.DAL.Repositories
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
-            await Task.Run(() =>
-            {
-                context.Set<TEntity>().AddRange(entities);
-            });
+            await context.Set<TEntity>().AddRangeAsync(entities);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -161,7 +155,7 @@ namespace EquipmentSupply.DAL.Repositories
             }
         }
 
-        
+
 
         public async Task<int> CountAsync()
         {
