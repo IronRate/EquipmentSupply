@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -34,7 +36,10 @@ namespace EquipmentSupply.API
             services.AddScoped<Domain.Contracts.Repositories.DB.INotificationQueueRepository, DAL.Repositories.NotificationQueueRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.IProvidersRepository, DAL.Repositories.ProvidersRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesRepository, DAL.Repositories.SuppliesRepository>();
-            
+
+            //Настройка нативного хоста
+            //services.AddHostedService<TimedHostedService<IImportPaymentsService>>();
+
             services.AddMvc();
         }
 
@@ -47,6 +52,13 @@ namespace EquipmentSupply.API
             }
 
             app.UseMvc();
+            app.UseDefaultFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider("wwwroot"),
+                //RequestPath = new PathString($"/{fileStoragePath}"),
+                //ContentTypeProvider = provider
+            });
         }
     }
 }

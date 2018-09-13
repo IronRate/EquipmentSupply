@@ -53,7 +53,9 @@ namespace EquipmentSupply.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Models.ViewModels.SupplyModel supply)
         {
-            if (ModelState.IsValid) { }
+            if (ModelState.IsValid) {
+
+            }
             return BadRequest(ModelState);
 
         }

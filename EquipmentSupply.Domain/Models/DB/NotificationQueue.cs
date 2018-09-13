@@ -60,6 +60,7 @@ namespace EquipmentSupply.Domain.Models.DB
         /// </summary>
         public DateTimeOffset? SendDate { get; set; }
 
+
         /// <summary>
         /// Поставка
         /// </summary>
