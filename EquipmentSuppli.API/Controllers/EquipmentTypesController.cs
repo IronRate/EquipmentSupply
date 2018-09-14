@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EquipmentSupply.API.Controllers
 {
+    //[Produces("application/json")]
     [Route("api/equipments")]
     public class EquipmentTypesController : Controller
     {
@@ -18,7 +19,7 @@ namespace EquipmentSupply.API.Controllers
             this.equipmentTypeService = equipmentTypeService;
         }
 
-        // GET: api/EquipmentTypes
+        
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -26,15 +27,15 @@ namespace EquipmentSupply.API.Controllers
             return Ok(equipmentTypes.Select(x => new Models.ViewModels.EquipmentTypeModel(x)));
         }
 
-        // GET: api/EquipmentTypes/5
+        
         [HttpGet("{id:long}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get([FromRoute]long id)
         {
             var equipmentType = await this.equipmentTypeService.GetAsync(id);
             return Ok(new Models.ViewModels.EquipmentTypeModel(equipmentType));
         }
 
-        // POST: api/EquipmentTypes
+        
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Models.ViewModels.EquipmentTypeModel equipment)
         {
@@ -55,7 +56,7 @@ namespace EquipmentSupply.API.Controllers
 
         // PUT: api/EquipmentTypes/5
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Put(long id,[FromBody] Models.ViewModels.EquipmentTypeModel equipment)
+        public async Task<IActionResult> Put([FromRoute]long id,[FromBody] Models.ViewModels.EquipmentTypeModel equipment)
         {
             if (equipment == null)
             {
@@ -79,7 +80,7 @@ namespace EquipmentSupply.API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id:long}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromRoute]long id)
         {
             var dbEquipment = await equipmentTypeService.GetAsync(id);
             if (dbEquipment != null)

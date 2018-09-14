@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { IEquipmentItem } from './../../services/backend/equipment.service';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { GridOptions } from 'ag-grid/dist/lib/entities/gridOptions';
 import { MatPaginator } from '@angular/material';
 import { AgGridNg2 } from 'ag-grid-angular';
@@ -13,6 +14,7 @@ import { RowNode } from 'ag-grid/dist/lib/entities/rowNode';
 export class EquipmentsGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(AgGridNg2) agGrid: AgGridNg2;
+  @Input() data:IEquipmentItem[];
 
   columnDefs: any[];
   gridOptions: GridOptions;

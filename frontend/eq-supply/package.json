@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json --port 4203",
-    "build": "ng build",
+    "build": "ng build --prod --output-path ../../EquipmentSuppli.API/wwwroot",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e",

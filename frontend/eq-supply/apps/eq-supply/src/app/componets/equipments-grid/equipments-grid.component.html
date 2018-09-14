@@ -1,8 +1,8 @@
 <div fxLayout="column">
   <ag-grid-angular style="height: calc(85vh); width: 100%;" class="ag-theme-balham" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
-    [rowData]="items" enableColResize enableSorting>
+    [rowData]="data" enableColResize enableSorting>
   </ag-grid-angular>
 </div>
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)">
-</mat-paginator>
+<!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)">
+</mat-paginator> -->
 

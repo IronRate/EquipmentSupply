@@ -14,7 +14,7 @@ import { ProviderEditDialogComponent } from '../provider-edit-dialog/provider-ed
 })
 export class ProvidersComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject();
-  private currentRow: RowNode;
+  public currentRow: RowNode;
 
   constructor(
     private providers: ProvidersRepository,

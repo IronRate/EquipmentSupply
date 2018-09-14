@@ -22,7 +22,7 @@ namespace EquipmentSupply.API.Models.ViewModels
 
         #region Properites
 
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         public string Name { get; set; }

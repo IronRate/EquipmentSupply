@@ -13,13 +13,16 @@ import { RowNode } from 'ag-grid';
 export class EquipmentsComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject();
   public currentRow:RowNode;
+  public data:IEquipmentItem[];
 
   constructor(
     private equipments: EquipmentsRepository,
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetch();
+  }
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();
@@ -31,7 +34,7 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .getAll()
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: x => {}
+        next: x => this.data=x
       });
   }
 
@@ -70,13 +73,17 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
     } else {
       obs = this.equipments.add(x);
     }
-    obs.takeUntil(this.ngUnsubscribe).subscribe();
+    obs.takeUntil(this.ngUnsubscribe).subscribe({next:()=>{
+      this.fetch();
+    }});
   }
 
   private removeProviderItem(x: IEquipmentItem) {
     this.equipments
       .remove(x.id)
       .takeUntil(this.ngUnsubscribe)
-      .subscribe();
+      .subscribe({next:()=>{
+        this.fetch();
+      }});
   }
 }

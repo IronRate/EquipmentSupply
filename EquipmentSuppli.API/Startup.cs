@@ -68,8 +68,16 @@ namespace EquipmentSupply.API
                 {
                     options.SerializerSettings.ContractResolver
                         = new CamelCasePropertyNamesContractResolver();
-                    
+
                 });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("CorsPolicy",
+            //        builder => builder.AllowAnyOrigin()
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        .AllowCredentials());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,30 +90,36 @@ namespace EquipmentSupply.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDefaultFiles(); // <-- Это
+            app.UseStaticFiles(); // <-- Вот это
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}/{id?}");
-            });
-            DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("index.html");
-            app.UseDefaultFiles(options);
-
-
-            var provider = new FileExtensionContentTypeProvider();
-            provider.Mappings[".woff"] = "application/font-woff";
-            provider.Mappings[".html"] = "html";
+            app.UseMvc();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller}/{action}/{id?}");
+            //});
 
 
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(rootPath),
-                //RequestPath = new PathString($"/index.html"),
-                ContentTypeProvider = provider
-            });
+
+            //DefaultFilesOptions options = new DefaultFilesOptions();
+            //options.DefaultFileNames.Clear();
+            //options.DefaultFileNames.Add("index.html");
+            //app.UseDefaultFiles(options);
+
+
+            //var provider = new FileExtensionContentTypeProvider();
+            //provider.Mappings[".woff"] = "application/font-woff";
+            //provider.Mappings[".html"] = "html";
+
+
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(rootPath),
+            //    //RequestPath = new PathString($"/index.html"),
+            //    ContentTypeProvider = provider
+            //});
         }
     }
 }
