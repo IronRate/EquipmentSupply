@@ -55,6 +55,7 @@ namespace EquipmentSupply.Domain.Imp.Services
                 else
                 {
                     unitOfWork.EqupmentTypes.Remove(equipmentType);
+                    await unitOfWork.CommitAsync();
                 }
             }
             else

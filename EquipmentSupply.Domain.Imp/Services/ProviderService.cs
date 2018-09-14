@@ -59,6 +59,7 @@ namespace EquipmentSupply.Domain.Imp.Services
                 else
                 {
                     unitOfWork.Providers.Remove(provider);
+                    await unitOfWork.CommitAsync();
                 }
             }
             else {

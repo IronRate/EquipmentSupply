@@ -1,5 +1,8 @@
 import { EquipmentEditDialogComponent } from './../equipment-edit-dialog/equipment-edit-dialog.component';
-import { EquipmentsRepository, IEquipmentItem } from './../../services/backend/equipment.service';
+import {
+  EquipmentsRepository,
+  IEquipmentItem
+} from './../../services/backend/equipment.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
@@ -12,8 +15,8 @@ import { RowNode } from 'ag-grid';
 })
 export class EquipmentsComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject();
-  public currentRow:RowNode;
-  public data:IEquipmentItem[];
+  public currentRow: RowNode;
+  public data: IEquipmentItem[];
 
   constructor(
     private equipments: EquipmentsRepository,
@@ -34,7 +37,7 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .getAll()
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: x => this.data=x
+        next: x => (this.data = x)
       });
   }
 
@@ -44,7 +47,7 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .afterClosed()
       .takeUntil(this.ngUnsubscribe)
       .subscribe((x: IEquipmentItem) => {
-        this.saveProviderItem(x);
+        if (x) this.saveProviderItem(x);
       });
   }
 
@@ -54,11 +57,14 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
 
   editHandler() {
     this.dialog
-      .open(EquipmentEditDialogComponent, { width: '50%' })
+      .open(EquipmentEditDialogComponent, {
+        width: '50%',
+        data: this.currentRow.data
+      })
       .afterClosed()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(x => {
-        this.saveProviderItem(x);
+        if (x) this.saveProviderItem(x);
       });
   }
 
@@ -73,17 +79,21 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
     } else {
       obs = this.equipments.add(x);
     }
-    obs.takeUntil(this.ngUnsubscribe).subscribe({next:()=>{
-      this.fetch();
-    }});
+    obs.takeUntil(this.ngUnsubscribe).subscribe({
+      next: () => {
+        this.fetch();
+      }
+    });
   }
 
   private removeProviderItem(x: IEquipmentItem) {
     this.equipments
       .remove(x.id)
       .takeUntil(this.ngUnsubscribe)
-      .subscribe({next:()=>{
-        this.fetch();
-      }});
+      .subscribe({
+        next: () => {
+          this.fetch();
+        }
+      });
   }
 }

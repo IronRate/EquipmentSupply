@@ -1,9 +1,10 @@
 import { IEquipmentItem } from './../../services/backend/equipment.service';
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { GridOptions } from 'ag-grid/dist/lib/entities/gridOptions';
 import { MatPaginator } from '@angular/material';
 import { AgGridNg2 } from 'ag-grid-angular';
 import { RowNode } from 'ag-grid/dist/lib/entities/rowNode';
+import { Subject } from 'rxjs/Subject';
 
 
 @Component({
@@ -15,6 +16,8 @@ export class EquipmentsGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(AgGridNg2) agGrid: AgGridNg2;
   @Input() data:IEquipmentItem[];
+  @Output() rowSelect:Subject<RowNode>=new Subject();
+
 
   columnDefs: any[];
   gridOptions: GridOptions;
@@ -64,6 +67,7 @@ export class EquipmentsGridComponent implements OnInit {
         this.gridOptions.api.setSortModel([{ colId: 'id', sort: 'desc' }]);
       },
       onCellClicked: params => {
+        this.rowSelect.next(params.node);
         // this.selectedGridRow = params.node;
         // switch (params.colDef.field) {
         //   case 'organization':
