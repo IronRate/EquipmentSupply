@@ -21,7 +21,7 @@ namespace EquipmentSupply.Domain.Imp.Services
 
         public Task<bool> CanRemove(Provider provider)
         {
-            return unitOfWork.Supplies.HasSuppliesForProvider(provider);
+            return unitOfWork.Supplies.HasForProvider(provider);
         }
 
         public async Task<long> CreateAsync(Provider provider)
@@ -51,7 +51,7 @@ namespace EquipmentSupply.Domain.Imp.Services
         {
             if (force == false)
             {
-                var hasSupplies = await unitOfWork.Supplies.HasSuppliesForProvider(provider);
+                var hasSupplies = await unitOfWork.Supplies.HasForProvider(provider);
                 if (hasSupplies)
                 {
                     throw new InvalidOperationException("Невозможно удалить поставщика, так как имеются поставки");

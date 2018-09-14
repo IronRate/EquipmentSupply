@@ -50,5 +50,17 @@ namespace EquipmentSupply.DAL.Repositories
                     ProviderName = x.ProviderName
                 }).FirstOrDefaultAsync();
         }
+
+        public Task<bool> HasForEquipmentType(EquipmentType equipmentType)
+        {
+            return context.Supplies
+                .AnyAsync(x => x.EquipmentTypeId == equipmentType.Id);
+        }
+
+        public Task<bool> HasForProvider(Provider provider)
+        {
+            return context.Supplies
+                .AnyAsync(x => x.ProviderId == provider.Id);
+        }
     }
 }

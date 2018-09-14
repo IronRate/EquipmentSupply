@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using EquipmentSupply.Domain.Models.DB;
@@ -40,6 +41,7 @@ namespace EquipmentSupply.API.Models.ViewModels
         /// <summary>
         /// Количество поставленных единиц
         /// </summary>
+        [Required]
         public long Count { get; set; }
 
         /// <summary>

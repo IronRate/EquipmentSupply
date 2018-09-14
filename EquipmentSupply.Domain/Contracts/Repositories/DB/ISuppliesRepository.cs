@@ -17,6 +17,13 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         /// </summary>
         /// <param name="provider">поставщик</param>
         /// <returns>true - если такие поставки есть, false - если таких поставок нет</returns>
-        Task<bool> HasSuppliesForProvider(Domain.Models.DB.Provider provider);
+        Task<bool> HasForProvider(Domain.Models.DB.Provider provider);
+
+        /// <summary>
+        ///  Получение информации о наличии поставок с таким видом оборудования
+        /// </summary>
+        /// <param name="equipmentType">вид оборудования</param>
+        /// <returns></returns>
+        Task<bool> HasForEquipmentType(Domain.Models.DB.EquipmentType equipmentType);
     }
 }

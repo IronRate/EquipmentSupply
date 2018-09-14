@@ -8,34 +8,61 @@ namespace EquipmentSupply.Domain.Imp.Services
 {
     public class EqupmentTypeService : Domain.Contracts.Services.IEquipmentTypeService
     {
-        public Task<bool> CanRemove(EquipmentType equipmentType)
+        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
+
+        public EqupmentTypeService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            this.unitOfWork = unitOfWork;
         }
 
-        public Task<long> CreateAsync(EquipmentType provider)
+        public Task<bool> CanRemove(EquipmentType equipmentType)
         {
-            throw new NotImplementedException();
+            return this.unitOfWork.Supplies.HasForEquipmentType(equipmentType);
+        }
+
+        public async Task<long> CreateAsync(EquipmentType equipmentType)
+        {
+            this.unitOfWork.EqupmentTypes.Add(equipmentType);
+            await this.unitOfWork.CommitAsync();
+            return equipmentType.Id;
         }
 
         public Task<IEnumerable<EquipmentType>> GetAsync()
         {
-            throw new NotImplementedException();
+            return this.unitOfWork.EqupmentTypes.GetAllAsync();
         }
 
         public Task<EquipmentType> GetAsync(long id)
         {
-            throw new NotImplementedException();
+            return this.unitOfWork.EqupmentTypes.GetAsync(id);
         }
 
-        public Task ModifyAsync(EquipmentType equipmentType)
+        public async Task ModifyAsync(EquipmentType equipmentType)
         {
-            throw new NotImplementedException();
+            this.unitOfWork.EqupmentTypes.Modify(equipmentType);
+            await this.unitOfWork.CommitAsync();
         }
 
-        public Task RemoveAsync(EquipmentType equipmentType, bool force = false)
+        public async Task RemoveAsync(EquipmentType equipmentType, bool force = false)
         {
-            throw new NotImplementedException();
+            if (force == false)
+            {
+                var hasSupplies = await unitOfWork.Supplies.HasForEquipmentType(equipmentType);
+                if (hasSupplies)
+                {
+                    throw new InvalidOperationException("Невозможно удалить вид оборудования, так как имеются поставки");
+                }
+                else
+                {
+                    unitOfWork.EqupmentTypes.Remove(equipmentType);
+                }
+            }
+            else
+            {
+                unitOfWork.Supplies.RemoveRange(equipmentType.Supplies);
+                unitOfWork.EqupmentTypes.Remove(equipmentType);
+                await unitOfWork.CommitAsync();
+            }
         }
     }
 }

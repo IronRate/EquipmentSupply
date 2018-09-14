@@ -10,9 +10,9 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// <summary>
         /// Добавит вид оборудования
         /// </summary>
-        /// <param name="provider"></param>
+        /// <param name="equipmentType"></param>
         /// <returns></returns>
-        Task<long> CreateAsync(Models.DB.EquipmentType provider);
+        Task<long> CreateAsync(Models.DB.EquipmentType equipmentType);
 
         /// <summary>
         /// Вернет спписок видов оборудования

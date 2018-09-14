@@ -9,6 +9,28 @@ namespace EquipmentSupply.Domain.Models.DB
     /// </summary>
     public class EquipmentType
     {
+
+        #region Constructor
+
+        protected EquipmentType()
+        {
+
+        }
+
+        public EquipmentType(string Name)
+        {
+            this.Id = 0;
+            this.Name = Name;
+        }
+
+        public EquipmentType(long id,string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
+
+        #endregion
+
         /// <summary>
         /// Идентификатор
         /// </summary>
