@@ -113,6 +113,10 @@ import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-
     NgxMaskModule.forRoot(),
     AgGridModule.withComponents([])
   ],
+  entryComponents:[
+    ProviderEditDialogComponent,
+    EquipmentEditDialogComponent
+  ],
   providers: [
     SuppliesRepository,
     EquipmentsRepository,

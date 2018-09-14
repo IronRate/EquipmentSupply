@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { GridOptions } from 'ag-grid/dist/lib/entities/gridOptions';
 import { MatPaginator } from '@angular/material';
 import { AgGridNg2 } from 'ag-grid-angular';
 import { RowNode } from 'ag-grid/dist/lib/entities/rowNode';
 import { DatePipe } from '@angular/common';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-providers-grid',
@@ -17,6 +18,8 @@ export class ProvidersGridComponent implements OnInit {
   columnDefs: any[];
   gridOptions: GridOptions;
   private selectedGridRow: RowNode;
+
+  @Output() rowSelect:Subject<RowNode>=new Subject();
 
   constructor() {}
 
@@ -89,6 +92,7 @@ export class ProvidersGridComponent implements OnInit {
         this.gridOptions.api.setSortModel([{ colId: 'id', sort: 'desc' }]);
       },
       onCellClicked: params => {
+        this.rowSelect.next(params.node);
         // this.selectedGridRow = params.node;
         // switch (params.colDef.field) {
         //   case 'organization':

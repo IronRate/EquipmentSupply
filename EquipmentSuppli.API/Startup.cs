@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 
 namespace EquipmentSupply.API
 {
@@ -20,7 +21,7 @@ namespace EquipmentSupply.API
     {
         public Startup(IConfiguration configuration)
         {
-            
+
 
             Configuration = configuration;
         }
@@ -51,7 +52,8 @@ namespace EquipmentSupply.API
 
 
 
-            using (var context = services.BuildServiceProvider().GetService<DAL.Contexts.DbSuppliesContext>()) {
+            using (var context = services.BuildServiceProvider().GetService<DAL.Contexts.DbSuppliesContext>())
+            {
                 context.Database.Migrate();
             }
 
@@ -60,13 +62,20 @@ namespace EquipmentSupply.API
             //Настройка нативного хоста
             services.AddHostedService<Services.NotificationSenderHost>();
 
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver
+                        = new CamelCasePropertyNamesContractResolver();
+                    
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
             var rootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
             if (env.IsDevelopment())
@@ -89,7 +98,7 @@ namespace EquipmentSupply.API
             var provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".woff"] = "application/font-woff";
             provider.Mappings[".html"] = "html";
-           
+
 
             app.UseStaticFiles(new StaticFileOptions()
             {

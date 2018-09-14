@@ -1,3 +1,8 @@
 <div>
-  <app-providers-grid></app-providers-grid>
+  <mat-toolbar>
+    <button mat-icon-button (click)="addHandler()" ><span class="mdi mdi-plus mdi-24px"></span></button>
+    <button mat-icon-button (click)="editHandler()" [disabled]="!currentRow"><span class="mdi mdi-pencil mdi-24px"></span></button>
+    <button mat-icon-button (click)="removeHandler()" [disabled]="!currentRow"><span class="mdi mdi-delete mdi-24px"></span></button>
+  </mat-toolbar>
+  <app-providers-grid (rowSelect)="rowSelectHandler($event)"></app-providers-grid>
 </div>
