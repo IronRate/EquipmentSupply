@@ -8,34 +8,64 @@ namespace EquipmentSupply.Domain.Imp.Services
 {
     public class ProviderService : Domain.Contracts.Services.IProviderService
     {
-        public Task<bool> CanRemove(Provider provider)
+        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
+
+        #region Constructor
+
+        public ProviderService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            this.unitOfWork = unitOfWork;
         }
 
-        public Task<long> CreateAsync(Provider provider)
+        #endregion
+
+        public Task<bool> CanRemove(Provider provider)
         {
-            throw new NotImplementedException();
+            return unitOfWork.Supplies.HasSuppliesForProvider(provider);
+        }
+
+        public async Task<long> CreateAsync(Provider provider)
+        {
+            unitOfWork.Providers.Add(provider);
+            await unitOfWork.CommitAsync();
+            return provider.Id;
         }
 
         public Task<IEnumerable<Provider>> GetAsync()
         {
-            throw new NotImplementedException();
+            return unitOfWork.Providers.GetAllAsync();
         }
 
         public Task<Provider> GetAsync(long id)
         {
-            throw new NotImplementedException();
+            return unitOfWork.Providers.GetAsync(id);
         }
 
-        public Task ModifyAsync(Provider provider)
+        public async Task ModifyAsync(Provider provider)
         {
-            throw new NotImplementedException();
+            unitOfWork.Providers.Modify(provider);
+            await unitOfWork.CommitAsync();
         }
 
-        public Task RemoveAsync(Provider provider, bool force = false)
+        public async Task RemoveAsync(Provider provider, bool force = false)
         {
-            throw new NotImplementedException();
+            if (force == false)
+            {
+                var hasSupplies = await unitOfWork.Supplies.HasSuppliesForProvider(provider);
+                if (hasSupplies)
+                {
+                    throw new InvalidOperationException("Невозможно удалить поставщика, так как имеются поставки");
+                }
+                else
+                {
+                    unitOfWork.Providers.Remove(provider);
+                }
+            }
+            else {
+                unitOfWork.Supplies.RemoveRange(provider.Supplies);
+                unitOfWork.Providers.Remove(provider);
+                await unitOfWork.CommitAsync();
+            }
         }
     }
 }
