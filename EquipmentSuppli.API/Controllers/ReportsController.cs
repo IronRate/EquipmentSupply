@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EquipmentSupply.API.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Reports")]
     public class ReportsController : Controller
     {

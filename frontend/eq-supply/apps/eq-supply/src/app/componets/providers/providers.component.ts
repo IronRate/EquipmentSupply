@@ -13,7 +13,7 @@ import { ProviderEditDialogComponent } from '../provider-edit-dialog/provider-ed
   styleUrls: ['./providers.component.css']
 })
 export class ProvidersComponent implements OnInit, OnDestroy {
-  private ngUnsubsctibe: Subject<void> = new Subject();
+  private ngUnsubscribe: Subject<void> = new Subject();
   private currentRow: RowNode;
 
   constructor(
@@ -24,14 +24,14 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   ngOnInit() {}
 
   ngOnDestroy() {
-    this.ngUnsubsctibe.next();
-    this.ngUnsubsctibe.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   fetch() {
     this.providers
       .getAll()
-      .takeUntil(this.ngUnsubsctibe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe({
         next: x => {}
       });
@@ -41,7 +41,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     this.dialog
       .open(ProviderEditDialogComponent, { width: '50%' })
       .afterClosed()
-      .takeUntil(this.ngUnsubsctibe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe((x: IProviderItem) => {
         this.saveProviderItem(x);
       });
@@ -55,7 +55,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     this.dialog
       .open(ProviderEditDialogComponent, { width: '50%' })
       .afterClosed()
-      .takeUntil(this.ngUnsubsctibe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(x => {
         this.saveProviderItem(x);
       });
@@ -72,13 +72,13 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     } else {
       obs = this.providers.add(x);
     }
-    obs.takeUntil(this.ngUnsubsctibe).subscribe();
+    obs.takeUntil(this.ngUnsubscribe).subscribe();
   }
 
   private removeProviderItem(x: IProviderItem) {
     this.providers
       .remove(x.id)
-      .takeUntil(this.ngUnsubsctibe)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe();
   }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace EquipmentSupply.API.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Providers")]
     public class ProvidersController : Controller
     {
@@ -36,7 +36,7 @@ namespace EquipmentSupply.API.Controllers
 
         // POST: api/Providers
         [HttpPost]
-        public async Task<IActionResult> Post(Models.ViewModels.ProviderModel provider)
+        public async Task<IActionResult> Post([FromBody]Models.ViewModels.ProviderModel provider)
         {
             if (provider == null)
             {
@@ -45,12 +45,12 @@ namespace EquipmentSupply.API.Controllers
 
             if (ModelState.IsValid)
             {
-                await this.providerService.CreateAsync(new Domain.Models.DB.Provider()
-                {
-                    Address = provider.Address,
-                    Email = provider.Email,
-                    Name = provider.Name
-                });
+                //await this.providerService.CreateAsync(new Domain.Models.DB.Provider()
+                //{
+                //    Address = provider.Address,
+                //    Email = provider.Email,
+                //    Name = provider.Name
+                //});
                 return Ok();
             }
             return BadRequest(ModelState);

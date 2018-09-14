@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EquipmentSupply.API.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/EquipmentTypes")]
+    [Route("api/equipments")]
     public class EquipmentTypesController : Controller
     {
         private readonly Domain.Contracts.Services.IEquipmentTypeService equipmentTypeService;
@@ -36,7 +36,7 @@ namespace EquipmentSupply.API.Controllers
 
         // POST: api/EquipmentTypes
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Models.ViewModels.EquipmentTypeModel equipment)
+        public async Task<IActionResult> Post([FromBody]Models.ViewModels.EquipmentTypeModel equipment)
         {
             if (equipment == null)
             {
@@ -55,7 +55,7 @@ namespace EquipmentSupply.API.Controllers
 
         // PUT: api/EquipmentTypes/5
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Put(long id, [FromBody]Models.ViewModels.EquipmentTypeModel equipment)
+        public async Task<IActionResult> Put(long id,[FromBody] Models.ViewModels.EquipmentTypeModel equipment)
         {
             if (equipment == null)
             {

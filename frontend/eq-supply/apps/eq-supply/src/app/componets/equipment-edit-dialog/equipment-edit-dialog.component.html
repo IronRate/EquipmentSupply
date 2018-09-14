@@ -1,3 +1,12 @@
-<p>
-  equipment-edit-dialog works!
-</p>
+<h2 mat-dialog-title>Редактирование вида оборудования</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" fxLayout="row" fxFlex="100" fxWrap>
+    <mat-form-field fxFlex="100">
+      <input matInput placeholder="Наименование" formControlName="name">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Сохранить</button>
+</mat-dialog-actions>
