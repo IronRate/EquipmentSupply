@@ -6,11 +6,11 @@ using EquipmentSupply.Domain.Models.DB;
 
 namespace EquipmentSupply.Domain.Imp.Services
 {
-    public class EqupmentTypeService : Domain.Contracts.Services.IEquipmentTypeService
+    public class EquipmentTypeService : Domain.Contracts.Services.IEquipmentTypeService
     {
         private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
 
-        public EqupmentTypeService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
+        public EquipmentTypeService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

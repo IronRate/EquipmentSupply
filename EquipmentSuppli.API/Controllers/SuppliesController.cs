@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EquipmentSupply.API.Controllers
 {
-    [Produces("application/json")]
     [Route("api/[controller]")]
     public class SuppliesController : Controller
     {
@@ -35,20 +34,20 @@ namespace EquipmentSupply.API.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] DateTimeOffset dateFrom, [FromQuery] DateTimeOffset? dateTo = null)
-        {
-            var supplies = await this.suppliesService.GetAsync(new Domain.Models.DatePeriod(dateFrom, dateTo));
-            return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
-        }
+        //[HttpGet(Name ="GetByDate")]
+        //public async Task<IActionResult> Get([FromQuery] DateTimeOffset dateFrom, [FromQuery] DateTimeOffset? dateTo = null)
+        //{
+        //    var supplies = await this.suppliesService.GetAsync(new Domain.Models.DatePeriod(dateFrom, dateTo));
+        //    return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
+        //}
 
-        // GET: api/Supplies/5
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<IActionResult> Get(long id)
-        {
-            var supply = await this.suppliesService.GetAsync(id);
-            return Ok(supply);
-        }
+        //// GET: api/Supplies/5
+        //[HttpGet("{id:long}",Name ="GetById")]
+        //public async Task<IActionResult> Get(long id)
+        //{
+        //    var supply = await this.suppliesService.GetAsync(id);
+        //    return Ok(supply);
+        //}
 
         // POST: api/Supplies
         [HttpPost]
@@ -62,7 +61,7 @@ namespace EquipmentSupply.API.Controllers
         }
 
         // PUT: api/Supplies/5
-        [HttpPut("{id}")]
+        [HttpPut("{id:long}")]
         public async Task<IActionResult> Put(long id, Models.ViewModels.SupplyModifyModel supply)
         {
             if (supply == null)
@@ -85,7 +84,7 @@ namespace EquipmentSupply.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:long}")]
         public async Task<IActionResult> Delete(long id)
         {
             var supply = await this.suppliesService.GetAsync(id);

@@ -27,7 +27,7 @@ namespace EquipmentSupply.API.Controllers
         }
 
         // GET: api/EquipmentTypes/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id:long}")]
         public async Task<IActionResult> Get(long id)
         {
             var equipmentType = await this.equipmentTypeService.GetAsync(id);
@@ -54,7 +54,7 @@ namespace EquipmentSupply.API.Controllers
         }
 
         // PUT: api/EquipmentTypes/5
-        [HttpPut("{id}")]
+        [HttpPut("{id:long}")]
         public async Task<IActionResult> Put(long id, [FromBody]Models.ViewModels.EquipmentTypeModel equipment)
         {
             if (equipment == null)
@@ -78,7 +78,7 @@ namespace EquipmentSupply.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:long}")]
         public async Task<IActionResult> Delete(int id)
         {
             var dbEquipment = await equipmentTypeService.GetAsync(id);
