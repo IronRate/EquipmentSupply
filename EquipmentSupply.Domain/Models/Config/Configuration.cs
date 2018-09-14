@@ -12,7 +12,7 @@ namespace EquipmentSupply.Domain.Models.Config
         /// <summary>
         /// Периодичность опроса очереди на отправку в секунду
         /// </summary>
-        public int Period { get; set; }
+        public int Interval { get; set; }
 
         /// <summary>
         /// Количество нотификационных сообщений отправляемых за одну траназкцию - 0 нелемитировано

@@ -27,7 +27,7 @@ namespace EquipmentSupply.API.Services
 
         public async Task<bool> SendAsync(object data)
         {
-            var config = (await configRepository.GetAsync()).EmailConfiguration;
+            var config = configRepository.Get().EmailConfiguration;
             string body = null;
 
             try

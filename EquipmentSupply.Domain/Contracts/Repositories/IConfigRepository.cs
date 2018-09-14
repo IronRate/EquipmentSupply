@@ -7,7 +7,7 @@ namespace EquipmentSupply.Domain.Contracts.Repositories
 {
     public interface IConfigRepository
     {
-        Task<Models.Config.Configuration> GetAsync();
+        Models.Config.Configuration Get();
 
         Task SaveAsync();
     }

@@ -30,6 +30,7 @@ namespace EquipmentSupply.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SuppliesContext")));
 
@@ -43,7 +44,7 @@ namespace EquipmentSupply.API
             services.AddSingleton<Domain.Contracts.Repositories.IConfigRepository, Services.ConfigurationRepository>();
             services.AddScoped<Domain.Contracts.Services.INotificationSender, Services.NotificationSender>();
 
-            services.AddSingleton<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
+            services.AddScoped<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
             services.AddScoped<Domain.Contracts.Services.ISupplyService, Domain.Imp.Services.SuppliesService>();
             services.AddScoped<Domain.Contracts.Services.IProviderService, Domain.Imp.Services.ProviderService>();
             services.AddScoped<Domain.Contracts.Services.IEquipmentTypeService, Domain.Imp.Services.EquipmentTypeService>();

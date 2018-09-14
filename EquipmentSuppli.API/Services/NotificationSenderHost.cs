@@ -25,13 +25,13 @@ namespace EquipmentSupply.API.Services
         {
             this.configRepository = configRepository;
 
-            var period = configRepository.GetAsync().Result.Period;
+            var period = configRepository.Get().Interval;
 
             _timer = new System.Timers.Timer
             {
                 Enabled = true,
                 AutoReset = false,
-                Interval = (double)period
+                Interval = (double)period*1000
             };
             this.serviceProvider = serviceProvider;
             this.configRepository = configRepository;
@@ -77,9 +77,9 @@ namespace EquipmentSupply.API.Services
                     notificationWorker.DoWorkAsync().Wait();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine();
             }
             finally
             {
