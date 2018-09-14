@@ -7,6 +7,12 @@ namespace EquipmentSupply.Domain.Models.Config
     public class Configuration:ConfigValidatatbleObject
     {
 
+        public Configuration()
+        {
+            EmailConfiguration = new EmailConfiguration();
+        }
+
+
         public EmailConfiguration EmailConfiguration{get;set;}
 
         /// <summary>

@@ -8,18 +8,22 @@ namespace EquipmentSupply.Domain.Models.Config
     {
         #region Constrcutor
 
+
+        public EmailConfiguration()
+        {
+
+        }
+
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="enable"></param>
         /// <param name="smtpServer"></param>
         /// <param name="port"></param>
         /// <param name="from"></param>
         /// <param name="login"></param>
         /// <param name="password"></param>
-        public EmailConfiguration(bool enable, string smtpServer, uint port, string from, string login, string password, bool useNTLM)
+        public EmailConfiguration(string smtpServer, uint port, string from, string login, string password, bool useNTLM)
         {
-            this.Enabled = enable;
             this.SmtpServer = smtpServer;
             this.Port = port;
             this.EmailFrom = from;
@@ -32,10 +36,7 @@ namespace EquipmentSupply.Domain.Models.Config
 
         #region Properties
 
-        /// <summary>
-        /// Признак включенности рассылки
-        /// </summary>
-        public bool Enabled { get; set; } = false;
+
 
         /// <summary>
         /// Адрес почтового сервера, через который бцдет осуществлятся отправка почты пользователям
@@ -72,17 +73,17 @@ namespace EquipmentSupply.Domain.Models.Config
         /// </summary>
         public bool UseNTLM { get; set; }
 
+
         #endregion
 
         public override void Validate()
         {
-            if (Enabled)
+
+            if (string.IsNullOrWhiteSpace(SmtpServer))
             {
-                if (string.IsNullOrWhiteSpace(SmtpServer))
-                {
-                    throw new ArgumentException("Не указан почтовый сервер", nameof(SmtpServer));
-                }
+                throw new ArgumentException("Не указан почтовый сервер", nameof(SmtpServer));
             }
+
         }
     }
 }
