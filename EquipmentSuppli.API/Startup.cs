@@ -26,9 +26,9 @@ namespace EquipmentSupply.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SuppliesContext")));
-            
+
 
             services.AddScoped<Domain.Contracts.Services.ISupplyService, Domain.Imp.Services.SuppliesService>();
             services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork, DAL.UnitOfWorks.SuppliesUnitOfWork>();
@@ -37,7 +37,8 @@ namespace EquipmentSupply.API
             services.AddScoped<Domain.Contracts.Repositories.DB.IProvidersRepository, DAL.Repositories.ProvidersRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesRepository, DAL.Repositories.SuppliesRepository>();
             services.AddScoped<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
-            services.AddScoped<Domain.Contracts.Repositories.IConfigRepository,>();
+            services.AddScoped<Domain.Contracts.Repositories.IConfigRepository, Services.ConfigurationRepository>();
+            services.AddScoped<Domain.Contracts.Services.INotificationSender, Services.NotificationSender>();
 
             //Настройка нативного хоста
             //services.AddHostedService<TimedHostedService<IImportPaymentsService>>();

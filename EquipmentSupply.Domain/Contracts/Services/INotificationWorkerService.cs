@@ -11,6 +11,6 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// Отправка сообщения
         /// </summary>
         /// <returns></returns>
-        Task SendAsync();
+        Task DoWorkAsync();
     }
 }

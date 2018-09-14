@@ -53,6 +53,11 @@ namespace EquipmentSupply.Domain.Models.Config
         public string EmailFrom { get; set; }
 
         /// <summary>
+        /// Электронный ящик, на который неообходимо отправлять почту
+        /// </summary>
+        public string EmailTo { get; set; }
+
+        /// <summary>
         /// Логин для доступа к ящику, через который буду отправлятся почтовые сообщения
         /// </summary>
         public string Login { get; set; }

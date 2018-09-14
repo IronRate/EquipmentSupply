@@ -8,21 +8,21 @@ namespace EquipmentSupply.Domain.Imp.Services
     public class NotificationWorkerService : Domain.Contracts.Services.INotificationWorkerService
     {
         private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
-        private readonly Contracts.Repositories.IConfigRepository configRepository;
+        private readonly Contracts.Services.INotificationSender notificationSender;
 
         public NotificationWorkerService(
             Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork,
-            Domain.Contracts.Repositories.IConfigRepository configRepository
+            Domain.Contracts.Services.INotificationSender notificationSender
             )
         {
             this.unitOfWork = unitOfWork;
-            this.configRepository = configRepository;
+            this.notificationSender = notificationSender;
         }
-        public async Task SendAsync()
+        public async Task DoWorkAsync()
         {
             var notifications=await unitOfWork.NotificationQueues.GetReadyForSendingAsync(20);
             if (notifications != null) {
-                )
+                await this.notificationSender.SendAsync(notifications);
             }
             
         }

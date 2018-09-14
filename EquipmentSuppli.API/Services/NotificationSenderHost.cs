@@ -61,7 +61,7 @@ namespace EquipmentSupply.API.Services
         {
             try
             {
-                this.sendNotificationService.SendAsync().Wait();
+                this.sendNotificationService.DoWorkAsync().Wait();
             }
             catch (Exception)
             {
