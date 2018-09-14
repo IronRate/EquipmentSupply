@@ -44,9 +44,10 @@ namespace EquipmentSupply.API.Controllers
 
         // GET: api/Supplies/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            return "value";
+            var supply = await this.suppliesService.GetAsync(id);
+            return Ok(supply);
         }
 
         // POST: api/Supplies
@@ -71,15 +72,13 @@ namespace EquipmentSupply.API.Controllers
 
             if (ModelState.IsValid)
             {
-
                 var dbSupply = await this.suppliesService.GetAsync(id);
                 if (dbSupply != null)
                 {
-
+                    await this.suppliesService.ModifyAsync(dbSupply);
+                    return Ok();
                 }
-
-                throw new NotImplementedException();
-
+                return NotFound();
             }
 
             return BadRequest(ModelState);
