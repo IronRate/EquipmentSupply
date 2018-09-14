@@ -7,11 +7,11 @@ namespace EquipmentSupply.Domain.Imp.Services
 {
     public class NotificationWorkerService : Domain.Contracts.Services.INotificationWorkerService
     {
-        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
+        private readonly Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork;
         private readonly Contracts.Services.INotificationSender notificationSender;
 
         public NotificationWorkerService(
-            Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork,
+            Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork,
             Domain.Contracts.Services.INotificationSender notificationSender
             )
         {

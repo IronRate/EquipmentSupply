@@ -8,11 +8,11 @@ namespace EquipmentSupply.Domain.Imp.Services
 {
     public class ProviderService : Domain.Contracts.Services.IProviderService
     {
-        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
+        private readonly Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork;
 
         #region Constructor
 
-        public ProviderService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
+        public ProviderService(Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

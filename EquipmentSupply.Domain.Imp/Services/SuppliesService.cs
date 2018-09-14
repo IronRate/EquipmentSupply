@@ -14,13 +14,13 @@ namespace EquipmentSupply.Domain.Imp.Services
     {
         #region Fields
 
-        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
+        private readonly Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork;
 
         #endregion
 
         #region Constructor
 
-        public SuppliesService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
+        public SuppliesService(Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

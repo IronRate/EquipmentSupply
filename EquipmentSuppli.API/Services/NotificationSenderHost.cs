@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,31 @@ namespace EquipmentSupply.API.Services
 {
     public class NotificationSenderHost : IHostedService, IDisposable
     {
-        private readonly Domain.Contracts.Services.INotificationWorkerService sendNotificationService;
+        //private readonly Domain.Contracts.Services.INotificationWorkerService sendNotificationService;
+        private readonly Domain.Contracts.Repositories.IConfigRepository configRepository;
         private readonly System.Timers.Timer _timer;
+        private readonly IServiceProvider serviceProvider;
         private bool _isDisposed = false;
 
         #region Constructor
 
-        public NotificationSenderHost(Domain.Contracts.Services.INotificationWorkerService sendNotificationService)
+        public NotificationSenderHost(
+            IServiceProvider serviceProvider,
+            Domain.Contracts.Repositories.IConfigRepository configRepository
+            )
         {
-            this.sendNotificationService = sendNotificationService;
+            this.configRepository = configRepository;
+
+            var period = configRepository.GetAsync().Result.Period;
 
             _timer = new System.Timers.Timer
             {
                 Enabled = true,
                 AutoReset = false,
-                Interval = 1000 //from configuration
+                Interval = (double)period
             };
+            this.serviceProvider = serviceProvider;
+            this.configRepository = configRepository;
         }
 
         #endregion
@@ -61,7 +71,11 @@ namespace EquipmentSupply.API.Services
         {
             try
             {
-                this.sendNotificationService.DoWorkAsync().Wait();
+                using (IServiceScope serviceScope = serviceProvider.CreateScope())
+                {
+                    var notificationWorker = serviceScope.ServiceProvider.GetService<Domain.Contracts.Services.INotificationWorkerService>();
+                    notificationWorker.DoWorkAsync().Wait();
+                }
             }
             catch (Exception)
             {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentSupply.DAL.UnitOfWorks
 {
-    public class SuppliesUnitOfWork : Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork
+    public class SuppliesUnitOfWork : Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork
     {
         #region Fields
 

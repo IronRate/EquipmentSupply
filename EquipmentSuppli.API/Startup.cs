@@ -34,19 +34,21 @@ namespace EquipmentSupply.API
             services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SuppliesContext")));
 
             services.AddScoped<DbContext, DAL.Contexts.DbSuppliesContext>();
-            services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork, DAL.UnitOfWorks.SuppliesUnitOfWork>();
+            services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork, DAL.UnitOfWorks.SuppliesUnitOfWork>();
             services.AddScoped<Domain.Contracts.Repositories.DB.IEqupmentTypesRepository, DAL.Repositories.EquipmentTypesRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.INotificationQueueRepository, DAL.Repositories.NotificationQueueRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.IProvidersRepository, DAL.Repositories.ProvidersRepository>();
             services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesRepository, DAL.Repositories.SuppliesRepository>();
 
-            services.AddScoped<Domain.Contracts.Repositories.IConfigRepository, Services.ConfigurationRepository>();
+            services.AddSingleton<Domain.Contracts.Repositories.IConfigRepository, Services.ConfigurationRepository>();
             services.AddScoped<Domain.Contracts.Services.INotificationSender, Services.NotificationSender>();
 
-            services.AddScoped<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
+            services.AddSingleton<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
             services.AddScoped<Domain.Contracts.Services.ISupplyService, Domain.Imp.Services.SuppliesService>();
             services.AddScoped<Domain.Contracts.Services.IProviderService, Domain.Imp.Services.ProviderService>();
             services.AddScoped<Domain.Contracts.Services.IEquipmentTypeService, Domain.Imp.Services.EquipmentTypeService>();
+
+
 
             using (var context = services.BuildServiceProvider().GetService<DAL.Contexts.DbSuppliesContext>()) {
                 context.Database.Migrate();
@@ -55,7 +57,7 @@ namespace EquipmentSupply.API
 
 
             //Настройка нативного хоста
-            //services.AddHostedService<Domain.Contracts.Services.INotificationWorkerService>();
+            services.AddHostedService<Services.NotificationSenderHost>();
 
             services.AddMvc();
         }

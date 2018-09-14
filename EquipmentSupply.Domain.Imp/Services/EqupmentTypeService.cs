@@ -8,9 +8,9 @@ namespace EquipmentSupply.Domain.Imp.Services
 {
     public class EquipmentTypeService : Domain.Contracts.Services.IEquipmentTypeService
     {
-        private readonly Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork;
+        private readonly Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork;
 
-        public EquipmentTypeService(Domain.Contracts.Repositories.DB.ISuppliesbUnitOfWork unitOfWork)
+        public EquipmentTypeService(Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
