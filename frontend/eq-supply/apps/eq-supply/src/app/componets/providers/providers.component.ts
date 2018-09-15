@@ -15,7 +15,7 @@ import { ProviderEditDialogComponent } from '../provider-edit-dialog/provider-ed
 export class ProvidersComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject();
   public currentRow: RowNode;
-  public data:IProviderItem[];
+  public data: IProviderItem[];
 
   constructor(
     private providers: ProvidersRepository,
@@ -36,7 +36,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       .getAll()
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: x => this.data=x
+        next: x => (this.data = x)
       });
   }
 
@@ -46,7 +46,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       .afterClosed()
       .takeUntil(this.ngUnsubscribe)
       .subscribe((x: IProviderItem) => {
-        this.saveProviderItem(x);
+        if (x) this.saveProviderItem(x);
       });
   }
 
@@ -56,11 +56,14 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
   editHandler() {
     this.dialog
-      .open(ProviderEditDialogComponent, { width: '50%' })
+      .open(ProviderEditDialogComponent, {
+        width: '50%',
+        data: this.currentRow.data
+      })
       .afterClosed()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(x => {
-        this.saveProviderItem(x);
+        if (x) this.saveProviderItem(x);
       });
   }
 
@@ -75,13 +78,13 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     } else {
       obs = this.providers.add(x);
     }
-    obs.takeUntil(this.ngUnsubscribe).subscribe();
+    obs.takeUntil(this.ngUnsubscribe).subscribe({ next: () => this.fetch() });
   }
 
   private removeProviderItem(x: IProviderItem) {
     this.providers
       .remove(x.id)
       .takeUntil(this.ngUnsubscribe)
-      .subscribe();
+      .subscribe({ next: () => this.fetch() });
   }
 }

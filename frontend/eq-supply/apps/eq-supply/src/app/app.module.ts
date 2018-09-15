@@ -70,6 +70,7 @@ import {
 import { ProvidersRepository } from './services/backend/providers.servise';
 import { ProvidersGridComponent } from './componets/providers-grid/providers-grid.component';
 import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-grid.component';
+import { ToolbarComponent } from './componets/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-
     EquipmentsComponent,
     EquipmentEditDialogComponent,
     ProvidersGridComponent,
-    EquipmentsGridComponent
+    EquipmentsGridComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

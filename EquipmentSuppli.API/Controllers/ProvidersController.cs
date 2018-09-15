@@ -28,7 +28,7 @@ namespace EquipmentSupply.API.Controllers
 
         // GET: api/Providers/5
         [HttpGet("{id:long}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get([FromRoute]long id)
         {
             var dbProvider = await this.providerService.GetAsync(id);
             return Ok(new Models.ViewModels.ProviderModel(dbProvider));
@@ -49,7 +49,8 @@ namespace EquipmentSupply.API.Controllers
                 {
                     Address = provider.Address,
                     Email = provider.Email,
-                    Name = provider.Name
+                    Name = provider.Name,
+                    Phone = provider.Phone
                 });
                 return Ok();
             }
@@ -58,7 +59,7 @@ namespace EquipmentSupply.API.Controllers
 
         // PUT: api/Providers/5
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Put(long id, Models.ViewModels.ProviderModel provider)
+        public async Task<IActionResult> Put([FromRoute] long id,[FromBody] Models.ViewModels.ProviderModel provider)
         {
             if (provider == null)
             {
@@ -72,7 +73,8 @@ namespace EquipmentSupply.API.Controllers
                     Id = id,
                     Address = provider.Address,
                     Email = provider.Email,
-                    Name = provider.Name
+                    Name = provider.Name,
+                    Phone=provider.Phone
                 });
                 return Ok();
             }
@@ -81,7 +83,7 @@ namespace EquipmentSupply.API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id:long}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete([FromRoute]long id)
         {
             var dbProvider = await this.providerService.GetAsync(id);
             if (dbProvider != null)
