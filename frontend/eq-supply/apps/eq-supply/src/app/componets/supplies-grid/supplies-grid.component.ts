@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ISupplyItem } from '../../services/backend/supplies.service';
 import { Subject } from 'rxjs/Subject';
@@ -6,7 +7,8 @@ import { RowNode, GridOptions } from 'ag-grid';
 @Component({
   selector: 'app-supplies-grid',
   templateUrl: './supplies-grid.component.html',
-  styleUrls: ['./supplies-grid.component.css']
+  styleUrls: ['./supplies-grid.component.css'],
+  providers:[DatePipe]
 })
 export class SuppliesGridComponent implements OnInit {
   @Input() data: ISupplyItem[];
@@ -16,7 +18,7 @@ export class SuppliesGridComponent implements OnInit {
   gridOptions: GridOptions;
   private selectedGridRow: RowNode;
 
-  constructor() {}
+  constructor(private datePipe:DatePipe) {}
 
   ngOnInit() {
     this.initGrid();
@@ -29,6 +31,13 @@ export class SuppliesGridComponent implements OnInit {
         field: 'id',
         width: 50,
         suppressFilter: true
+      },
+      {
+        headerName:'Дата поставки',
+        field:'provideDate',
+        cellRenderer:params=>{
+          return this.datePipe.transform(params.value,'dd.MM.yyyy')
+        }
       },
       {
         headerName: 'Поставщик',
