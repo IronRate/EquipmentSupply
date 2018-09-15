@@ -4,3 +4,50 @@
 // ag-grid
 @import 'ag-grid/dist/styles/ag-grid.css';
 @import 'ag-grid/dist/styles/ag-theme-balham.css';
+
+@white: white;
+@danger:red;
+@warning:orange;
+@sucess:green;
+
+body{
+  padding: 0;
+  margin: 0;
+  color: rgb(54, 54, 54)
+}
+
+table{
+font-size:90%;
+width:100%;
+& th{
+  text-align:left;
+}
+border-collapse: collapse;
+table-layout: fixed;
+& td, & th{
+  padding:8px;
+  border-bottom:1px solid rgb(189, 189, 189);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+&.hovered tbody>tr:hover{
+  background-color:grey;
+  color:white;
+  cursor: pointer;
+}
+}
+
+a{
+text-decoration :underline;
+color:rgb(89, 166, 248);
+cursor: pointer;
+}
+
+
+
+
+.main-menu .mat-expansion-indicator::after, .mat-expansion-panel-header-description {
+color:@white !important
+}

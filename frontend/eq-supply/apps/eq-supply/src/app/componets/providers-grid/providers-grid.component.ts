@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, Output } from '@angular/core';
+import { IProviderItem } from './../../services/backend/providers.servise';
+import { Component, OnInit, ViewChild, Output, Input } from '@angular/core';
 import { GridOptions } from 'ag-grid/dist/lib/entities/gridOptions';
 import { MatPaginator } from '@angular/material';
 import { AgGridNg2 } from 'ag-grid-angular';
@@ -14,6 +15,7 @@ import { Subject } from 'rxjs/Subject';
 export class ProvidersGridComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(AgGridNg2) agGrid: AgGridNg2;
+  @Input() data:IProviderItem[];
 
   columnDefs: any[];
   gridOptions: GridOptions;

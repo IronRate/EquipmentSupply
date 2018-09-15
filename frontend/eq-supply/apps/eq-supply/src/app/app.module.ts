@@ -51,7 +51,9 @@ import {
   MAT_SNACK_BAR_DATA,
   MAT_DATE_FORMATS,
   DateAdapter,
-  MatAccordion
+  MatAccordion,
+  MatDialogRef,
+  MAT_DIALOG_DATA
 } from '@angular/material';
 
 //ag-grid
@@ -151,6 +153,13 @@ import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-
         closeOnNavigation: true,
         disableClose: true
       }
+    }
+    ,{
+      provide:MatDialogRef,
+      useValue: {}
+    },{
+      provide: MAT_DIALOG_DATA,
+      useValue: {} // Add any data you wish to test if it is passed/used correctly
     }
   ],
   bootstrap: [AppComponent]

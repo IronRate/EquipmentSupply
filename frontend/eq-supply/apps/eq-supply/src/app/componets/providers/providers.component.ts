@@ -15,13 +15,16 @@ import { ProviderEditDialogComponent } from '../provider-edit-dialog/provider-ed
 export class ProvidersComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject();
   public currentRow: RowNode;
+  public data:IProviderItem[];
 
   constructor(
     private providers: ProvidersRepository,
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetch();
+  }
 
   ngOnDestroy() {
     this.ngUnsubscribe.next();
@@ -33,7 +36,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       .getAll()
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: x => {}
+        next: x => this.data=x
       });
   }
 
