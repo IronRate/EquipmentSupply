@@ -34,6 +34,12 @@ namespace EquipmentSupply.API.Controllers
             return Ok(new Models.ViewModels.ProviderModel(dbProvider));
         }
 
+        [HttpGet("find")]
+        public async Task<IActionResult> Get([FromQuery] string name) {
+            var dbProviders = await this.providerService.FindAsync(name);
+            return Ok(dbProviders.Select(x=>new Models.ViewModels.ProviderModel(x)));
+        }
+
         // POST: api/Providers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Models.ViewModels.ProviderModel provider)

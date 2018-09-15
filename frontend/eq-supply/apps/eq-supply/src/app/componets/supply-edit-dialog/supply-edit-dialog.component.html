@@ -4,14 +4,15 @@
     <!-- <mat-form-field fxFlex="100">
       <input matInput placeholder="Поставщик" formControlName="providerId">
     </mat-form-field> -->
-    <mat-form-field>
-        <input type="text" matInput formControlName="provider" [matAutocomplete]="auto">
-      </mat-form-field>
+    <mat-form-field fxFlex="100">
+      <input type="text" matInput placeholder="Поставщик" formControlName="provider"  [matAutocomplete]="auto" (input)="searchProviders($event.target.value)">
+    </mat-form-field>
 
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
-      </mat-autocomplete>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProvider">
+      <mat-option *ngFor="let provider of filteredProviders | async" [value]="provider">{{provider.name}}</mat-option>
+    </mat-autocomplete>
   </form>
+  {{form.value|json}}
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Отмена</button>

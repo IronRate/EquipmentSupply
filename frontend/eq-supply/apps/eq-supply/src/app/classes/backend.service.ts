@@ -11,6 +11,10 @@ export abstract class BackendRepository<TEntity,TKey>{
     this._headers = new HttpHeaders({'Content-Type': 'application/json'});
   }
 
+  protected get url(){
+    return this._api;
+  }
+
   /**Вернет все записи */
   getAll() {
     return this.http.get<TEntity[]>(this._api);

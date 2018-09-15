@@ -31,6 +31,11 @@ namespace EquipmentSupply.Domain.Imp.Services
             return provider.Id;
         }
 
+        public Task<IEnumerable<Provider>> FindAsync(string name)
+        {
+            return unitOfWork.Providers.FindAsync(x => x.Name.Contains(name));
+        }
+
         public Task<IEnumerable<Provider>> GetAsync()
         {
             return unitOfWork.Providers.GetAllAsync();

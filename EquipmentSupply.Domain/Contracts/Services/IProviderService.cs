@@ -35,6 +35,13 @@ namespace EquipmentSupply.Domain.Contracts.Services
         Task ModifyAsync(Models.DB.Provider provider);
 
         /// <summary>
+        /// Осуществляет поиск поставщика по части его наименования
+        /// </summary>
+        /// <param name="name">наименование</param>
+        /// <returns></returns>
+        Task<IEnumerable<Models.DB.Provider>> FindAsync(string name);
+
+        /// <summary>
         /// Удаление поставщика в месте с его поставками
         /// </summary>
         /// <param name="provider">поставщик</param>
