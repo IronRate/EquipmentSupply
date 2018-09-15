@@ -22,6 +22,12 @@ namespace EquipmentSupply.Domain.Imp.Services
 
         public async Task<long> CreateAsync(EquipmentType equipmentType)
         {
+            //Защита от дурака - вид оборудования в единственном экземпляре - сделаем это кодом, хотя можно сделать и на уровне SQL
+            if (await this.HasWithNameAsync(equipmentType.Name) == true)
+            {
+                throw new InvalidOperationException($"Вид оборудования с именем {equipmentType.Name} уже существует в хранилище");
+            }
+
             this.unitOfWork.EqupmentTypes.Add(equipmentType);
             await this.unitOfWork.CommitAsync();
             return equipmentType.Id;
@@ -37,8 +43,24 @@ namespace EquipmentSupply.Domain.Imp.Services
             return this.unitOfWork.EqupmentTypes.GetAsync(id);
         }
 
+        public async Task<bool> HasWithNameAsync(string name)
+        {
+            return await this.unitOfWork.EqupmentTypes.AnyAsync(x => x.Name == name);
+        }
+
+        public async Task<bool> HasWithNameAsync(EquipmentType equipmentType)
+        {
+            return await this.unitOfWork.EqupmentTypes.AnyAsync(x => x.Name == equipmentType.Name && x.Id != equipmentType.Id);
+        }
+
         public async Task ModifyAsync(EquipmentType equipmentType)
         {
+            //Защита от дурака при редактировании - проверка на существование вида оборудования по имени
+            if (await this.HasWithNameAsync(equipmentType) == true)
+            {
+                throw new InvalidOperationException($"Вид оборудования с именем {equipmentType.Name} уже существует в хранилище");
+            }
+
             this.unitOfWork.EqupmentTypes.Modify(equipmentType);
             await this.unitOfWork.CommitAsync();
         }

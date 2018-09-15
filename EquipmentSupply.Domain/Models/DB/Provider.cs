@@ -29,6 +29,11 @@ namespace EquipmentSupply.Domain.Models.DB
         /// </summary>
         public string Address { get; set; }
 
+        /// <summary>
+        /// Номер телефона
+        /// </summary>
+        public string Phone { get; set; }
+
 
         /// <summary>
         /// Поставки данного поставщика

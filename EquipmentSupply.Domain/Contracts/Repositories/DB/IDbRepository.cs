@@ -110,5 +110,19 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         /// <returns></returns>
         Task<int> CountAsync();
 
+        /// <summary>
+        /// Вернет наличие элементов в хранилище по условию, переданому в предикате
+        /// </summary>
+        /// <param name="predicate">условие поиска элементов</param>
+        /// <returns></returns>
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// Вернет наличие элементов в хранилище по условию, переданому в предикате
+        /// </summary>
+        /// <param name="predicate">условие поиска элементов</param>
+        /// <returns></returns>
+        bool Any(Expression<Func<TEntity, bool>> predicate);
+
     }
 }

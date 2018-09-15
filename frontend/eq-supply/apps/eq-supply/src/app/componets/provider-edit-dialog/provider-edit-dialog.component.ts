@@ -19,7 +19,7 @@ export class ProviderEditDialogComponent implements OnInit {
     this.form = this.fb.group({
       id: null,
       name:[null,[Validators.required]],
-      email: [null,[Validators.required]],
+      email: [null,[Validators.required,Validators.pattern(/^.*@.*\..{2,}/g)]],
       address: [null,[Validators.required]]
     });
   }

@@ -66,7 +66,7 @@ export class ProvidersGridComponent implements OnInit {
       },
       {
         headerName: 'Email',
-        field: 'notificationEmail',
+        field: 'email',
         cellRenderer: params => {
           return `<a>${params.value}</a>`;
         },

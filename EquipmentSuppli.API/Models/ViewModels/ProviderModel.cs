@@ -22,13 +22,14 @@ namespace EquipmentSupply.API.Models.ViewModels
             this.Email = provider.Email;
             this.Name = provider.Name;
             this.Address = provider.Address;
+            this.Phone = provider.Phone;
         }
 
         #endregion
 
         #region Properies
 
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required,MinLength(4)]
         public string Name { get; set; }
@@ -38,6 +39,9 @@ namespace EquipmentSupply.API.Models.ViewModels
 
         [Required,MinLength(5)]
         public string Address { get; set; }
+
+        [Required]
+        public string Phone { get; set; }
 
         #endregion
 

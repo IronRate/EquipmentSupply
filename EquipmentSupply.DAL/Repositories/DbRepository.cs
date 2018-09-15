@@ -161,5 +161,15 @@ namespace EquipmentSupply.DAL.Repositories
         {
             return await context.Set<TEntity>().CountAsync();
         }
+
+        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return this.context.Set<TEntity>().AnyAsync(predicate);
+        }
+
+        public bool Any(Expression<Func<TEntity, bool>> predicate)
+        {
+            return this.context.Set<TEntity>().Any(predicate);
+        }
     }
 }

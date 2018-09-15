@@ -45,12 +45,12 @@ namespace EquipmentSupply.API.Controllers
 
             if (ModelState.IsValid)
             {
-                //await this.providerService.CreateAsync(new Domain.Models.DB.Provider()
-                //{
-                //    Address = provider.Address,
-                //    Email = provider.Email,
-                //    Name = provider.Name
-                //});
+                await this.providerService.CreateAsync(new Domain.Models.DB.Provider()
+                {
+                    Address = provider.Address,
+                    Email = provider.Email,
+                    Name = provider.Name
+                });
                 return Ok();
             }
             return BadRequest(ModelState);

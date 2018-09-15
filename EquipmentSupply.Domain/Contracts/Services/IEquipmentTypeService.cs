@@ -48,5 +48,19 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// <param name="equipmentType">вид оборудования</param>
         /// <returns></returns>
         Task<bool> CanRemove(Models.DB.EquipmentType equipmentType);
+
+        /// <summary>
+        /// Вернет признак наличия вида оборудования по его наименованию
+        /// </summary>
+        /// <param name="name">наименование оборудлвания</param>
+        /// <returns></returns>
+        Task<bool> HasWithNameAsync(string name);
+
+        /// <summary>
+        /// Вернет признак наличия вида оборудования по его наименованию
+        /// </summary>
+        /// <param name="equipmentType">вид оборудования</param>
+        /// <returns></returns>
+        Task<bool> HasWithNameAsync(Models.DB.EquipmentType equipmentType);
     }
 }
