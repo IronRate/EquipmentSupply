@@ -62,5 +62,12 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// <param name="equipmentType">вид оборудования</param>
         /// <returns></returns>
         Task<bool> HasWithNameAsync(Models.DB.EquipmentType equipmentType);
+
+        /// <summary>
+        /// Поиск по имени
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Models.DB.EquipmentType>> FindAsync(string name);
     }
 }

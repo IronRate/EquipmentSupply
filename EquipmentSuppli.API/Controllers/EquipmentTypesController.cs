@@ -91,5 +91,12 @@ namespace EquipmentSupply.API.Controllers
             else
                 return NotFound();
         }
+
+        [HttpGet("find")]
+        public async Task<IActionResult> Get([FromQuery] string name)
+        {
+            var dbProviders = await this.equipmentTypeService.FindAsync(name);
+            return Ok(dbProviders.Select(x => new Models.ViewModels.EquipmentTypeModel(x)));
+        }
     }
 }

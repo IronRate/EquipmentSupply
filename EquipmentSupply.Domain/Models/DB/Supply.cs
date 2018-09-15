@@ -9,6 +9,25 @@ namespace EquipmentSupply.Domain.Models.DB
     /// </summary>
     public class Supply
     {
+        #region Constructor
+
+        public Supply()
+        {
+
+        }
+
+        public Supply(long providerId,long equipmentTypeId,long count)
+        {
+            Id = 0;
+            ProvideDate = DateTimeOffset.Now;
+            ProviderId = providerId;
+            EquipmentTypeId = equipmentTypeId;
+            Count = count;
+            IsDelete = false;
+        }
+
+        #endregion
+
         /// <summary>
         /// Идентфикатор
         /// </summary>

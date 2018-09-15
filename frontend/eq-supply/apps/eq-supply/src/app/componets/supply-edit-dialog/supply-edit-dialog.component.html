@@ -1,18 +1,42 @@
-<h2 mat-dialog-title>Редактирвоание поставки</h2>
+<h2 mat-dialog-title>Редактирование поставки</h2>
 <mat-dialog-content>
-  <form [formGroup]="form" fxFlex="100" fxLayout="row wrap" fxLayoutGap="10px">
-    <!-- <mat-form-field fxFlex="100">
-      <input matInput placeholder="Поставщик" formControlName="providerId">
-    </mat-form-field> -->
-    <mat-form-field fxFlex="100">
-      <input type="text" matInput placeholder="Поставщик" formControlName="provider"  [matAutocomplete]="auto" (input)="searchProviders($event.target.value)">
-    </mat-form-field>
+  <div>
+    <form [formGroup]="form" fxFlex="100" fxLayout="row wrap" fxLayoutGap="10px">
+      <div fxLayout="row wrap" fxFlex="100">
+        <mat-form-field fxFlex="100">
+          <input type="text" matInput placeholder="Поставщик" formControlName="provider" [matAutocomplete]="auto" required>
+        </mat-form-field>
 
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProvider">
-      <mat-option *ngFor="let provider of filteredProviders | async" [value]="provider">{{provider.name}}</mat-option>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProvider">
+          <mat-option *ngFor="let provider of filteredProviders | async" [value]="provider">{{provider.name}}</mat-option>
+        </mat-autocomplete>
+      </div>
+
+      <mat-divider></mat-divider>
+      <div formArrayName="supplies" style="width:100%" fxLayout="row wrap">
+        <form [formGroup]="form" *ngFor="let form of form.get('supplies').controls; let i = index" style="width:100%" fxLayoutGap="10px">
+          <mat-form-field fxFlex="100">
+            <input matInput formControlName="equipment" placeholder="Вид оборудования" required [matAutocomplete]="autoEquipments" (input)="searchEquipments($event.target.value)">
+          </mat-form-field>
+          <mat-form-field fxFlex="25">
+            <input matInput formControlName="count" placeholder="Количество" required type="number">
+          </mat-form-field>
+          <button mat-icon-button style="margin-top:8px" (click)="supplyRemoveHandler(i)">
+            <span class="mdi mdi-delete"></span>
+          </button>
+        </form>
+      </div>
+    </form>
+
+    <mat-autocomplete #autoEquipments="matAutocomplete" [displayWith]="displayFnProvider">
+      <mat-option *ngFor="let equipment of filteredEquipments | async" [value]="equipment">{{equipment.name}}</mat-option>
     </mat-autocomplete>
-  </form>
-  {{form.value|json}}
+  </div>
+
+  <div>
+    <a href="javascript:void(0)" (click)="addHandler()">Добавить</a>
+  </div>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Отмена</button>

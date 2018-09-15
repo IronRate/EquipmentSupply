@@ -25,12 +25,12 @@ namespace EquipmentSupply.DAL.Repositories
             {
                 Count = x.Count,
                 EquipmentTypeId = x.EquipmentTypeId,
-                EquipmentTypeName = x.EquipmentTypeName,
+                EquipmentTypeName = x.EquipmentType.Name,
                 Id = x.Id,
                 IsDelete = x.IsDelete,
                 ProvideDate = x.ProvideDate,
                 ProviderId = x.ProviderId,
-                ProviderName = x.ProviderName
+                ProviderName = x.Provider.Name
             }).ToListAsync();
         }
 
@@ -42,12 +42,12 @@ namespace EquipmentSupply.DAL.Repositories
                 {
                     Count = x.Count,
                     EquipmentTypeId = x.EquipmentTypeId,
-                    EquipmentTypeName = x.EquipmentTypeName,
+                    EquipmentTypeName = x.EquipmentType.Name,
                     Id = x.Id,
                     IsDelete = x.IsDelete,
                     ProvideDate = x.ProvideDate,
                     ProviderId = x.ProviderId,
-                    ProviderName = x.ProviderName
+                    ProviderName = x.Provider.Name
                 }).FirstOrDefaultAsync();
         }
 

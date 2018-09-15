@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EquipmentSupply.Domain.Models;
@@ -44,6 +45,19 @@ namespace EquipmentSupply.Domain.Imp.Services
             await this.unitOfWork.CommitAsync();
 
             return supply.Id;
+        }
+
+        public async Task CreateRangeAsync(IEnumerable<Supply> dbSupplies)
+        {
+            if (dbSupplies == null)
+            {
+                throw new ArgumentNullException(nameof(dbSupplies));
+            }
+
+            unitOfWork.Supplies.AddRange(dbSupplies);
+            var notifications = dbSupplies.Select(x => new NotificationQueue(x, Enums.OperationType.Create));
+            this.unitOfWork.NotificationQueues.AddRange(notifications);
+            await this.unitOfWork.CommitAsync();
         }
 
         public Task<IEnumerable<Supply>> GetAllAsync()

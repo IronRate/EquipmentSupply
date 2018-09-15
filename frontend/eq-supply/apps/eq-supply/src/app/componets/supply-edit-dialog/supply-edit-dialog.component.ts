@@ -1,4 +1,4 @@
-import { EquipmentsRepository } from './../../services/backend/equipment.service';
+import { EquipmentsRepository, IEquipmentItem } from './../../services/backend/equipment.service';
 import {
   ProvidersRepository,
   IProviderItem
@@ -10,11 +10,13 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  FormControl
+  FormControl,
+  FormArray
 } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-supply-edit-dialog',
@@ -24,6 +26,7 @@ import 'rxjs/add/operator/map';
 export class SupplyEditDialogComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public filteredProviders: Observable<IProviderItem[]>;
+  public filteredEquipments:Observable<IEquipmentItem[]>;
 
   private ngUnsubscribe: Subject<void> = new Subject();
 
@@ -45,19 +48,45 @@ export class SupplyEditDialogComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.form = this.fb.group({
-      provider: [null, [Validators.required]]
+      provider: [null, [Validators.required]],
+      supplies: new FormArray([])
     });
+
+    this.form.controls.provider.valueChanges
+      .debounceTime(500)
+      .subscribe(newValue => {
+        this.searchProviders(newValue);
+      });
+
+      var c=this.form.controls.supplies;
+      this.addHandler();
   }
 
   searchProviders($event) {
     this.filteredProviders = this.findProviders($event);
   }
 
-  private findProviders(name:string) {
+  searchEquipments($event){
+    this.filteredEquipments=this.equipments.find($event);
+  }
+
+  addHandler() {
+    const control = this.fb.group({
+      equipment: [null, [Validators.required]],
+      count: [0, [Validators.required, Validators.min(1)]]
+    });
+    (<FormArray>this.form.get('supplies')).push(control);
+  }
+
+  private findProviders(name: string) {
     return this.providers.find(name);
   }
 
   displayFnProvider(provider?: IProviderItem): string | undefined {
     return provider ? provider.name : undefined;
+  }
+
+  supplyRemoveHandler(i: number) {
+    (<FormArray>this.form.get('supplies')).removeAt(i);
   }
 }

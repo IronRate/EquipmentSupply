@@ -41,20 +41,28 @@ namespace EquipmentSupply.API.Controllers
         //    return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
         //}
 
-        //// GET: api/Supplies/5
-        //[HttpGet("{id:long}",Name ="GetById")]
-        //public async Task<IActionResult> Get(long id)
-        //{
-        //    var supply = await this.suppliesService.GetAsync(id);
-        //    return Ok(supply);
-        //}
+        // GET: api/Supplies/5
+        [HttpGet("{id:long}", Name = "GetById")]
+        public async Task<IActionResult> Get([FromRoute]long id)
+        {
+            var supply = await this.suppliesService.GetAsync(id);
+            return Ok(supply);
+        }
 
         // POST: api/Supplies
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Models.ViewModels.SupplyModel supply)
+        public async Task<IActionResult> Post([FromBody]Models.ViewModels.SupplyCreateModel supply)
         {
-            if (ModelState.IsValid) {
+            if (supply == null)
+            {
+                ModelState.AddModelError(nameof(supply), new ArgumentNullException(nameof(supply)).ToString());
+            }
 
+            if (ModelState.IsValid)
+            {
+                var dbSupplies = supply.Supplies.Select(x => new Domain.Models.DB.Supply(supply.Provider.Id.GetValueOrDefault(), x.Equipment.Id.GetValueOrDefault(), x.Count));
+                await this.suppliesService.CreateRangeAsync(dbSupplies);
+                return Ok();
             }
             return BadRequest(ModelState);
 
@@ -62,7 +70,7 @@ namespace EquipmentSupply.API.Controllers
 
         // PUT: api/Supplies/5
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> Put(long id, Models.ViewModels.SupplyModifyModel supply)
+        public async Task<IActionResult> Put([FromRoute]long id, [FromBody]Models.ViewModels.SupplyModifyModel supply)
         {
             if (supply == null)
             {
@@ -85,7 +93,7 @@ namespace EquipmentSupply.API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id:long}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete([FromRoute]long id)
         {
             var supply = await this.suppliesService.GetAsync(id);
             if (supply != null)

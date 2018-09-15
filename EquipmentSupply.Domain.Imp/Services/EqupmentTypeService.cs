@@ -33,6 +33,11 @@ namespace EquipmentSupply.Domain.Imp.Services
             return equipmentType.Id;
         }
 
+        public Task<IEnumerable<EquipmentType>> FindAsync(string name)
+        {
+            return this.unitOfWork.EqupmentTypes.FindAsync(x => x.Name.Contains(name));
+        }
+
         public Task<IEnumerable<EquipmentType>> GetAsync()
         {
             return this.unitOfWork.EqupmentTypes.GetAllAsync();

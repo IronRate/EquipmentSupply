@@ -33,7 +33,7 @@ export class SuppliesGridComponent implements OnInit {
       {
         headerName: 'Поставщик',
         suppressSizeToFit: true,
-        field: 'providerName',
+        field: 'provider.name',
         // cellRenderer: params => {
         //   return `<a>${params.value}</a>`;
         // },
@@ -43,7 +43,7 @@ export class SuppliesGridComponent implements OnInit {
       },
       {
         headerName: 'Вид оборудования',
-        field: 'equipmentTypeName',
+        field: 'equipmentType.name',
         width: 100,
         // filterFramework: AgTextFilterComponent,
         // filterParams: { placeholder: "ИНН", pattern: /^(\d{10}|00\d{10})&/, maxLength: 12, minLength: 10 },

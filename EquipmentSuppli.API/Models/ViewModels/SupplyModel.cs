@@ -20,7 +20,16 @@ namespace EquipmentSupply.API.Models.ViewModels
             this.IsDelete = supply.IsDelete;
             this.ProvideDate = supply.ProvideDate;
             this.ProviderId = supply.ProviderId;
-
+            this.Provider = new ProviderModel()
+            {
+                Id = supply.ProviderId,
+                Name = supply.ProviderName
+            };
+            this.EquipmentType = new EquipmentTypeModel
+            {
+                Id = supply.EquipmentTypeId,
+                Name = supply.EquipmentTypeName
+            };
         }
 
         #endregion
@@ -58,6 +67,10 @@ namespace EquipmentSupply.API.Models.ViewModels
         /// Тип оборудования
         /// </summary>
         public long EquipmentTypeId { get; set; }
+
+        public EquipmentTypeModel EquipmentType { get; set; }
+
+        public ProviderModel Provider { get; set; }
 
 
         #endregion

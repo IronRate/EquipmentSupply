@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using EquipmentSupply.Domain.Models.DB;
 
 namespace EquipmentSupply.Domain.Contracts.Services
 {
@@ -48,6 +49,11 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// <returns></returns>
         Task<IEnumerable<Models.DB.Supply>> GetAsync(Models.DatePeriod datePeriod);
 
-       
+        /// <summary>
+        /// Создает поставки в хранилище
+        /// </summary>
+        /// <param name="dbSupplies">поставки</param>
+        /// <returns></returns>
+        Task CreateRangeAsync(IEnumerable<Supply> dbSupplies);
     }
 }
