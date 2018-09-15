@@ -1,3 +1,6 @@
-<p>
-  toolbar works!
-</p>
+<mat-toolbar>
+  <button mat-icon-button (click)="refresh.next()" ><span class="mdi mdi-refresh mdi-24px"></span></button>
+  <button mat-icon-button (click)="add.next()" ><span class="mdi mdi-plus mdi-24px"></span></button>
+  <button mat-icon-button (click)="edit.next()" [disabled]="!row"><span class="mdi mdi-pencil mdi-24px"></span></button>
+  <button mat-icon-button (click)="remove.next()" [disabled]="!row"><span class="mdi mdi-delete mdi-24px"></span></button>
+</mat-toolbar>

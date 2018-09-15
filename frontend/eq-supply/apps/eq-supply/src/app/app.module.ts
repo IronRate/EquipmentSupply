@@ -53,7 +53,8 @@ import {
   DateAdapter,
   MatAccordion,
   MatDialogRef,
-  MAT_DIALOG_DATA
+  MAT_DIALOG_DATA,
+  MatAutocomplete
 } from '@angular/material';
 
 //ag-grid
@@ -71,6 +72,7 @@ import { ProvidersRepository } from './services/backend/providers.servise';
 import { ProvidersGridComponent } from './componets/providers-grid/providers-grid.component';
 import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-grid.component';
 import { ToolbarComponent } from './componets/toolbar/toolbar.component';
+import { SuppliesGridComponent } from './componets/supplies-grid/supplies-grid.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,8 @@ import { ToolbarComponent } from './componets/toolbar/toolbar.component';
     EquipmentEditDialogComponent,
     ProvidersGridComponent,
     EquipmentsGridComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SuppliesGridComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +104,7 @@ import { ToolbarComponent } from './componets/toolbar/toolbar.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
     MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
@@ -119,7 +123,8 @@ import { ToolbarComponent } from './componets/toolbar/toolbar.component';
   ],
   entryComponents:[
     ProviderEditDialogComponent,
-    EquipmentEditDialogComponent
+    EquipmentEditDialogComponent,
+    SupplyEditDialogComponent
   ],
   providers: [
     SuppliesRepository,

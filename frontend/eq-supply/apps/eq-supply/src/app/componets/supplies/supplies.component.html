@@ -1,3 +1,5 @@
-<p>
-  supplies works!
-</p>
+<div>
+  <app-toolbar (refresh)="fetch()" (add)="addHandler()" (edit)="editHandler()" (remove)="removeHandler()" [row]="currentRow">
+  </app-toolbar>
+  <app-supplies-grid [data]="data" (rowSelect)="rowSelectHandler($event)"></app-supplies-grid>
+</div>

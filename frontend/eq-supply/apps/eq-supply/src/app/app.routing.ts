@@ -12,8 +12,12 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'supplies',
+    path: 'supplies/lived',
     component: SuppliesComponent
+  },
+  {
+    path:'supplies/removed',
+    component:SuppliesComponent
   },
   {
     path:'directories/providers',

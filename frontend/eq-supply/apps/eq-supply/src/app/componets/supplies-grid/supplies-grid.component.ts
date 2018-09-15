@@ -1,23 +1,16 @@
-import { IEquipmentItem } from './../../services/backend/equipment.service';
-import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
-import { GridOptions } from 'ag-grid/dist/lib/entities/gridOptions';
-import { MatPaginator } from '@angular/material';
-import { AgGridNg2 } from 'ag-grid-angular';
-import { RowNode } from 'ag-grid/dist/lib/entities/rowNode';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { ISupplyItem } from '../../services/backend/supplies.service';
 import { Subject } from 'rxjs/Subject';
-
+import { RowNode, GridOptions } from 'ag-grid';
 
 @Component({
-  selector: 'app-equipments-grid',
-  templateUrl: './equipments-grid.component.html',
-  styleUrls: ['./equipments-grid.component.css']
+  selector: 'app-supplies-grid',
+  templateUrl: './supplies-grid.component.html',
+  styleUrls: ['./supplies-grid.component.css']
 })
-export class EquipmentsGridComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(AgGridNg2) agGrid: AgGridNg2;
-  @Input() data:IEquipmentItem[];
-  @Output() rowSelect:Subject<RowNode>=new Subject();
-
+export class SuppliesGridComponent implements OnInit {
+  @Input() data: ISupplyItem[];
+  @Output() rowSelect: Subject<RowNode> = new Subject();
 
   columnDefs: any[];
   gridOptions: GridOptions;
@@ -38,14 +31,30 @@ export class EquipmentsGridComponent implements OnInit {
         suppressFilter: true
       },
       {
-        headerName: 'Наименование',
-        suppressSizeToFit: false,
-        field: 'name',
-        cellRenderer: params => {
-          return `<a>${params.value}</a>`;
-        },
+        headerName: 'Поставщик',
+        suppressSizeToFit: true,
+        field: 'providerName',
+        // cellRenderer: params => {
+        //   return `<a>${params.value}</a>`;
+        // },
         // filterFramework: AgTextFilterComponent,
         // filterParams: { placeholder: 'Организация' },
+        suppressSorting: true
+      },
+      {
+        headerName: 'Вид оборудования',
+        field: 'equipmentTypeName',
+        width: 100,
+        // filterFramework: AgTextFilterComponent,
+        // filterParams: { placeholder: "ИНН", pattern: /^(\d{10}|00\d{10})&/, maxLength: 12, minLength: 10 },
+        suppressSorting: true
+      },
+      {
+        headerName: 'Количество',
+        field: 'count',
+        width: 100,
+        //filterFramework: AgTextFilterComponent,
+        //filterParams: { placeholder: 'Телефон' },
         suppressSorting: true
       }
     ];
@@ -68,18 +77,6 @@ export class EquipmentsGridComponent implements OnInit {
       },
       onCellClicked: params => {
         this.rowSelect.next(params.node);
-        // this.selectedGridRow = params.node;
-        // switch (params.colDef.field) {
-        //   case 'organization':
-        //     this.itemOpen(this.selectedGridRow.data, 0);
-        //     break;
-        //   case 'stateName':
-        //     this.itemOpen(this.selectedGridRow.data, 1);
-        //     break;
-        //   case 'notificationEmail':
-        //     this.openEmailSender(this.selectedGridRow.data);
-        //     break;
-        // }
       },
       onSortChanged: params => {
         //this.fetch();
