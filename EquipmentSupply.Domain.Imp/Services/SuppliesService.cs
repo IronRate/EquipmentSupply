@@ -54,15 +54,17 @@ namespace EquipmentSupply.Domain.Imp.Services
                 throw new ArgumentNullException(nameof(dbSupplies));
             }
 
-            unitOfWork.Supplies.AddRange(dbSupplies);
+
             var notifications = dbSupplies.Select(x => new NotificationQueue(x, Enums.OperationType.Create));
             this.unitOfWork.NotificationQueues.AddRange(notifications);
             await this.unitOfWork.CommitAsync();
+
+
         }
 
         public Task<IEnumerable<Supply>> GetAllAsync()
         {
-            return unitOfWork.Supplies.GetAllExtendedAsync();            
+            return unitOfWork.Supplies.GetAllExtendedAsync();
         }
 
         public Task<Supply> GetAsync(long id)
@@ -83,7 +85,8 @@ namespace EquipmentSupply.Domain.Imp.Services
             }
 
             //Запрещаем модифицировать удаленную поставку
-            if (supply.IsDelete) {
+            if (supply.IsDelete)
+            {
                 throw new InvalidOperationException("Операция редактирования отменена. Запрещено модифицировать удаленную поставку");
             }
 
