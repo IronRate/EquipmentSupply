@@ -1,4 +1,7 @@
-import { EquipmentsRepository, IEquipmentItem } from './../../services/backend/equipment.service';
+import {
+  EquipmentsRepository,
+  IEquipmentItem
+} from './../../services/backend/equipment.service';
 import {
   ProvidersRepository,
   IProviderItem
@@ -26,7 +29,7 @@ import 'rxjs/add/operator/debounceTime';
 export class SupplyEditDialogComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public filteredProviders: Observable<IProviderItem[]>;
-  public filteredEquipments:Observable<IEquipmentItem[]>;
+  public filteredEquipments: Observable<IEquipmentItem[]>;
 
   private ngUnsubscribe: Subject<void> = new Subject();
 
@@ -48,25 +51,38 @@ export class SupplyEditDialogComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.form = this.fb.group({
+      id:[null],
       provider: [null, [Validators.required]],
-      provideDate:[null,[Validators.required]],
+      provideDate: [null, [Validators.required]],
       supplies: new FormArray([])
     });
+
+    if (this.data) {
+      this.form.patchValue({
+        id:this.data.id,
+        provider: this.data.provider,
+        provideDate: this.data.provideDate
+      });
+      this.addHandler();
+      const a=this.form.controls['supplies'];
+      (<any>a).controls[0].patchValue({equipment:this.data.equipmentType,count:this.data.count})
+    }else{
+       this.addHandler();
+    }
 
     this.form.controls.provider.valueChanges
       .debounceTime(500)
       .subscribe(newValue => {
         this.searchProviders(newValue);
       });
-      this.addHandler();
   }
 
   searchProviders($event) {
     this.filteredProviders = this.findProviders($event);
   }
 
-  searchEquipments($event){
-    this.filteredEquipments=this.equipments.find($event);
+  searchEquipments($event) {
+    this.filteredEquipments = this.equipments.find($event);
   }
 
   addHandler() {

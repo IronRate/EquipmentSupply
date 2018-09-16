@@ -42,7 +42,10 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .getAll()
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: x => (this.data = x),
+        next: x => {
+          this.data = x;
+          this.currentRow = null;
+        },
         error: ex => {
           this.errorHandler(ex);
         }
@@ -96,6 +99,7 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
     obs.takeUntil(this.ngUnsubscribe).subscribe({
       next: () => {
         this.fetch();
+        this.currentRow = null;
       },
       error: ex => {
         this.errorHandler(ex);
@@ -110,6 +114,7 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.fetch();
+          this.currentRow = null;
         },
         error: ex => {
           this.errorHandler(ex);
@@ -119,7 +124,7 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
 
   private errorHandler(ex) {
     if (ex) {
-      const error = this.errorAnalyzer.get(ex,true);
+      const error = this.errorAnalyzer.get(ex, true);
       this.snackBar.open(error.message, 'Ошибка', { duration: 5000 });
     }
   }

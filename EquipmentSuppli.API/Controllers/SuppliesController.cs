@@ -83,6 +83,10 @@ namespace EquipmentSupply.API.Controllers
                 var dbSupply = await this.suppliesService.GetAsync(id);
                 if (dbSupply != null)
                 {
+                    dbSupply.Count = supply.Supplies[0].Count;
+                    dbSupply.EquipmentTypeId = supply.Supplies[0].Equipment.Id.Value;
+                    dbSupply.ProvideDate = supply.ProvideDate;
+                    dbSupply.ProviderId = supply.Provider.Id;
                     await this.suppliesService.ModifyAsync(dbSupply);
                     return Ok();
                 }

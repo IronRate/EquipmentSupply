@@ -28,7 +28,7 @@
           </mat-form-field>
           <mat-form-field fxFlex="25">
             <input matInput formControlName="count" placeholder="Количество" required type="number">
-            <i class="mdi mdi-delete" matSuffix (click)="supplyRemoveHandler(i)"></i>
+            <i class="mdi mdi-delete" matSuffix (click)="supplyRemoveHandler(i)" *ngIf="!data"></i>
           </mat-form-field>
         </form>
       </div>
@@ -39,7 +39,7 @@
     </mat-autocomplete>
   </div>
 
-  <div>
+  <div *ngIf="!data">
     <a href="javascript:void(0)" (click)="addHandler()">Добавить</a>
   </div>
 

@@ -58,6 +58,10 @@ export class ErrorAnalyzerService {
       return this.getModelStateErrors(ex.modelState);
     } else if (ex.error) {
       return this.getStackedMessageFromServerError(ex.error);
+    }else if(ex.message){
+      return ex.message;
+    }else{
+      return this.getModelStateErrors(ex)
     }
 
     let result = '';
@@ -72,7 +76,7 @@ export class ErrorAnalyzerService {
     if (ex.innerException) {
       result += ' ' + this.getStackedMessageFromServerError(ex.innerException);
     }
-    if (result.length == 0) {
+    if (result.length === 0) {
       result = ex.message || ex;
     }
     return result;

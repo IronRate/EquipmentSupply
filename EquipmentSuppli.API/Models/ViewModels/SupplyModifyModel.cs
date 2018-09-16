@@ -8,13 +8,17 @@ namespace EquipmentSupply.API.Models.ViewModels
 {
     public class SupplyModifyModel
     {
-        #region Properties
-
         /// <summary>
-        /// Идентфикатор
+        /// Поставщик
         /// </summary>
         [Required]
-        public long Id { get; set; }
+        public SupplyModifyProviderModel Provider { get; set; }
+
+        /// <summary>
+        /// Поставки
+        /// </summary>
+        [Required]
+        public List<SupplyCreateRowModel> Supplies { get; set; }
 
         /// <summary>
         /// Дата поставки
@@ -22,30 +26,21 @@ namespace EquipmentSupply.API.Models.ViewModels
         [Required]
         public DateTimeOffset ProvideDate { get; set; }
 
-        /// <summary>
-        /// Количество поставленных единиц
-        /// </summary>
-        [Required,Range(0,long.MaxValue)]
-        public long Count { get; set; }
 
-        /// <summary>
-        /// Признак удаленной поставки
-        /// </summary>
-        public bool IsDelete { get; set; }
-
-        /// <summary>
-        /// Идентификатор поставщика
-        /// </summary>
-        [Required]
-        public long ProviderId { get; set; }
-
-        /// <summary>
-        /// Тип оборудования
-        /// </summary>
-        [Required]
-        public long EquipmentTypeId { get; set; }
+        public class SupplyCreateRowModel
+        {
+            [Required]
+            public long Count { get; set; }
 
 
-        #endregion
+            public EquipmentTypeModel Equipment { get; set; }
+
+        }
+
+        public class SupplyModifyProviderModel {
+
+            [Required]
+            public long Id { get; set; }
+        }
     }
 }

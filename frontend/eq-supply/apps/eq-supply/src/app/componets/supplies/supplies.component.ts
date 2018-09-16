@@ -55,7 +55,10 @@ export class SuppliesComponent implements OnInit, OnDestroy {
       this.filterDate.dateTo
     );
     q.takeUntil(this.ngUnsubscribe).subscribe({
-      next: x => (this.data = x),
+      next: x => {
+        this.data = x;
+        this.currentRow = null;
+      },
       error: ex => {
         this.errorHandler(ex);
       }
@@ -110,7 +113,10 @@ export class SuppliesComponent implements OnInit, OnDestroy {
       obs = this.supplies.add(x);
     }
     obs.takeUntil(this.ngUnsubscribe).subscribe({
-      next: () => this.fetch(),
+      next: () => {
+        this.fetch();
+        this.currentRow = null;
+      },
       error: ex => {
         this.errorHandler(ex);
       }
@@ -122,7 +128,10 @@ export class SuppliesComponent implements OnInit, OnDestroy {
       .remove(x.id)
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: () => this.fetch(),
+        next: () => {
+          this.fetch();
+          this.currentRow = null;
+        },
         error: ex => {
           this.errorHandler(ex);
         }

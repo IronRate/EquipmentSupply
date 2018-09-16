@@ -91,7 +91,10 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       obs = this.providers.add(x);
     }
     obs.takeUntil(this.ngUnsubscribe).subscribe({
-      next: () => this.fetch(),
+      next: () => {
+        this.fetch();
+        this.currentRow = null;
+      },
       error: ex => {
         this.errorHandler(ex);
       }
@@ -103,7 +106,10 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       .remove(x.id)
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: () => this.fetch(),
+        next: () => {
+          this.fetch();
+          this.currentRow = null;
+        },
         error: ex => {
           this.errorHandler(ex);
         }

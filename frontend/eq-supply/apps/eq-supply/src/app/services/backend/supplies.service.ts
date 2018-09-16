@@ -1,3 +1,5 @@
+import { IEquipmentItem } from './equipment.service';
+import { IProviderItem } from './providers.servise';
 import { ISupplyItem } from './supplies.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -9,6 +11,9 @@ export interface ISupplyItem {
   providerId: string;
   equpmentTypeId: string;
   provideDate: Date;
+  provider:IProviderItem;
+  equipmentType:IEquipmentItem;
+  count:number;
 }
 
 /**Поставки */
