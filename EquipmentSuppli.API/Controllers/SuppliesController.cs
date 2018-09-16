@@ -27,9 +27,10 @@ namespace EquipmentSupply.API.Controllers
 
         // GET: api/Supplies
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] bool isRemoved=false)
+        public async Task<IActionResult> Get([FromQuery] bool isRemoved = false, [FromQuery] DateTimeOffset? dateFrom = null, [FromQuery] DateTimeOffset? dateTo=null)
         {
-            var supplies = await this.suppliesService.GetAllAsync(isRemoved);
+
+            var supplies = await this.suppliesService.GetAllAsync(isRemoved,dateFrom,dateTo);
             return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
         }
 

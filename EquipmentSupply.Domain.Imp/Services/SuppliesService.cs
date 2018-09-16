@@ -62,9 +62,25 @@ namespace EquipmentSupply.Domain.Imp.Services
 
         }
 
-        public Task<IEnumerable<Supply>> GetAllAsync(bool isRemoved)
+        public Task<IEnumerable<Supply>> GetAllAsync(bool isRemoved,DateTimeOffset? dateFrom,DateTimeOffset? dateTo)
         {
-            return unitOfWork.Supplies.GetAllExtendedAsync(isRemoved);
+            if (dateFrom == null)
+            {
+                dateTo = null;
+            }
+            else {
+                if (dateTo == null) {
+                    dateTo = DateTimeOffset.Now;
+                }
+                dateTo=dateTo.Value.AddDays(1);
+
+                if (dateFrom > dateTo) {
+                    var a = dateTo;
+                    dateTo = dateFrom;
+                    dateFrom = a;
+                }
+            }
+            return unitOfWork.Supplies.GetAllExtendedAsync(isRemoved,dateFrom,dateTo);
         }
 
         public Task<Supply> GetAsync(long id)

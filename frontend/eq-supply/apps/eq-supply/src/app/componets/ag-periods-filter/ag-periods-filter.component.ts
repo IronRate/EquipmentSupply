@@ -10,17 +10,16 @@ import { IFilterAngularComp } from 'ag-grid-angular';
   templateUrl: './ag-periods-filter.component.html',
   styleUrls: ['./ag-periods-filter.component.css']
 })
-export class AgPeriodsFilterComponent implements OnInit,IFilterAngularComp {
+export class AgPeriodsFilterComponent implements OnInit, IFilterAngularComp {
   private params: any;
   private valueGetter: (rowNode: RowNode) => any;
   private _timer: Observable<number>;
   private ngUnsubscribe: Subject<void> = new Subject();
   public form: FormGroup;
   public text: string = '';
-  public maxDate=new Date();
+  public maxDate = new Date();
 
-
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
@@ -36,10 +35,16 @@ export class AgPeriodsFilterComponent implements OnInit,IFilterAngularComp {
   }
 
   doesFilterPass(params: IDoesFilterPassParams): boolean {
-    return this.text.toLowerCase()
-      .split(" ")
-      .every((filterWord) => {
-        return this.valueGetter(params.node).toString().toLowerCase().indexOf(filterWord) >= 0;
+    return this.text
+      .toLowerCase()
+      .split(' ')
+      .every(filterWord => {
+        return (
+          this.valueGetter(params.node)
+            .toString()
+            .toLowerCase()
+            .indexOf(filterWord) >= 0
+        );
       });
   }
 
@@ -48,23 +53,26 @@ export class AgPeriodsFilterComponent implements OnInit,IFilterAngularComp {
   }
 
   setModel(model: any): void {
-    if(this.form)
-    this.form.patchValue(model);
+    if (this.form) {
+      if (model) this.form.patchValue(model);
+      else this.form.reset();
+    }
   }
 
-  private createForm(){
-    this.form=this.fb.group({
-      dateFrom:[null],
-      dateTo:[new Date()]
+  public commitHandler(){
+    this.params.filterChangedCallback();
+  }
+
+  private createForm() {
+    this.form = this.fb.group({
+      dateFrom: [null],
+      dateTo: [new Date()]
     });
     this.form.valueChanges
       .debounceTime(1000)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(x => {
-        if (this.text !== this.form.value.search) {
-          this.text = this.form.value.search;
-          this.params.filterChangedCallback();
-        }
-      })
+        this.commitHandler();
+      });
   }
 }

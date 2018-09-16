@@ -21,6 +21,11 @@ export class SuppliesComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject();
   public currentState: number;
 
+  private filterDate: {
+    dateFrom?: Date;
+    dateTo?: Date;
+  } = {};
+
   constructor(
     private supplies: SuppliesRepository,
     private dialog: MatDialog,
@@ -39,11 +44,7 @@ export class SuppliesComponent implements OnInit, OnDestroy {
 
   fetch() {
     let q: Observable<ISupplyItem[]>;
-    if (this.currentState == 1) {
-      q = this.supplies.getLeaved();
-    } else {
-      q = this.supplies.getRemoved();
-    }
+    q = this.supplies.getExtended(this.currentState == 1 ? false : true,this.filterDate.dateFrom,this.filterDate.dateTo);
     q.takeUntil(this.ngUnsubscribe).subscribe({
       next: x => {
         this.data = x;
@@ -83,7 +84,8 @@ export class SuppliesComponent implements OnInit, OnDestroy {
   }
 
   filterChangedHandler(filter: any) {
-    debugger;
+    this.filterDate = filter.provideDate.value;
+    this.fetch();
   }
 
   private saveProviderItem(x: ISupplyItem) {

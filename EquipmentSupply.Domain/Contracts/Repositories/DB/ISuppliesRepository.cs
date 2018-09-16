@@ -6,9 +6,11 @@ using EquipmentSupply.Domain.Models.DB;
 
 namespace EquipmentSupply.Domain.Contracts.Repositories.DB
 {
-    public interface ISuppliesRepository:IDbRepository<Models.DB.Supply,long>
+    public interface ISuppliesRepository : IDbRepository<Models.DB.Supply, long>
     {
-        Task<IEnumerable<Models.DB.Supply>> GetAllExtendedAsync(bool isRemoved);
+        Task<IEnumerable<Models.DB.Supply>> GetAllExtendedAsync(bool isRemoved,DateTimeOffset? dateFrom,DateTimeOffset? dateTo);
+
+
 
         Task<Supply> GetExtendedAsync(long id);
 
@@ -27,6 +29,6 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         Task<bool> HasForEquipmentType(Domain.Models.DB.EquipmentType equipmentType);
 
 
-        
+
     }
 }

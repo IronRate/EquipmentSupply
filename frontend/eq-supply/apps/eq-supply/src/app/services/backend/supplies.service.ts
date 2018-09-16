@@ -18,6 +18,17 @@ export class SuppliesRepository extends BackendRepository<ISupplyItem, string> {
     super(http, 'api/supplies');
   }
 
+  getExtended(isRemoved:boolean,dateFrom?:Date,dateTo?:Date){
+    let params=new HttpParams().append('isRemoved',isRemoved.toString());
+    if(dateFrom){
+      params=params.append('dateFrom',dateFrom.toJSON());
+    }
+    if(dateTo){
+      params=params.append('dateTo',dateTo.toJSON());
+    }
+    return this.http.get<ISupplyItem[]>(this.url, { params });
+  }
+
   getLeaved() {
     let params = new HttpParams().append('isRemoved', 'false');
     return this.http.get<ISupplyItem[]>(this.url, { params });
