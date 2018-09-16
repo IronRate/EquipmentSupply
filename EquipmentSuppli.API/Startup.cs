@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EquipmentSupply.API.Middlware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -95,6 +96,11 @@ namespace EquipmentSupply.API
             }
             app.UseDefaultFiles(); // <-- Это
             app.UseStaticFiles(); // <-- Вот это
+
+            app.UseExceptionHandler(new ExceptionHandlerOptions
+            {
+                ExceptionHandler = new JsonExceptionMiddleware().Invoke
+            });
 
             app.UseMvc();
             //app.UseMvc(routes =>
