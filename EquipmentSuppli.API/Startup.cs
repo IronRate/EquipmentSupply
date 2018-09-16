@@ -34,6 +34,7 @@ namespace EquipmentSupply.API
             services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SuppliesContext")));
+            services.AddDbContext<EquipmentSupply.DAL.Contexts.DbSuppliesViewContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SuppliesContext")));
 
             services.AddScoped<DbContext, DAL.Contexts.DbSuppliesContext>();
             services.AddScoped<Domain.Contracts.Repositories.DB.ISuppliesUnitOfWork, DAL.UnitOfWorks.SuppliesUnitOfWork>();
@@ -44,6 +45,7 @@ namespace EquipmentSupply.API
 
             services.AddSingleton<Domain.Contracts.Repositories.IConfigRepository, Services.ConfigurationRepository>();
             services.AddScoped<Domain.Contracts.Services.INotificationSender, Services.NotificationSender>();
+            services.AddScoped<Services.Reports.EquipmentReport>();
 
             services.AddScoped<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
             services.AddScoped<Domain.Contracts.Services.ISupplyService, Domain.Imp.Services.SuppliesService>();

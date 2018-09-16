@@ -25,5 +25,8 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         /// <param name="equipmentType">вид оборудования</param>
         /// <returns></returns>
         Task<bool> HasForEquipmentType(Domain.Models.DB.EquipmentType equipmentType);
+
+
+        
     }
 }

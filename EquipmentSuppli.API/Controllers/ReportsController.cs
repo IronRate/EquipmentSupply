@@ -10,16 +10,18 @@ namespace EquipmentSupply.API.Controllers
     [Route("api/Reports")]
     public class ReportsController : Controller
     {
-        public ReportsController()
-        {
+        private readonly Services.Reports.EquipmentReport equipmentReport;
 
+        public ReportsController(Services.Reports.EquipmentReport equipmentReport)
+        {
+            this.equipmentReport = equipmentReport;
         }
 
-        // GET: api/Reports
-        [HttpGet]
-        public async Task<IActionResult> Get()
+
+        [HttpGet("providers/{providerId:long}/equipments")]
+        public async Task<IActionResult> Get([FromRoute]long providerId)
         {
-            return Ok();
+            return Ok(await equipmentReport.GetAsync(providerId));
         }
 
     }
