@@ -90,13 +90,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         items: [
           {
             name: 'supplies/lived',
-            text: 'Текущие',
-            url: '/supplies/lived'
+            text: 'Действущие',
+            url: '/supplies/1'
           },
           {
             name: 'supplies/removed',
             text: 'Удаленые',
-            url: '/supplies/removed'
+            url: '/supplies/2'
           }
         ]
       },

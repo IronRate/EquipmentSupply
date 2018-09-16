@@ -27,9 +27,9 @@ namespace EquipmentSupply.API.Controllers
 
         // GET: api/Supplies
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] bool isRemoved=false)
         {
-            var supplies = await this.suppliesService.GetAllAsync();
+            var supplies = await this.suppliesService.GetAllAsync(isRemoved);
             return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
         }
 
@@ -41,15 +41,15 @@ namespace EquipmentSupply.API.Controllers
         //    return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
         //}
 
-        // GET: api/Supplies/5
-        [HttpGet("{id:long}", Name = "GetById")]
+        
+        [HttpGet("{id:long}")]
         public async Task<IActionResult> Get([FromRoute]long id)
         {
             var supply = await this.suppliesService.GetAsync(id);
             return Ok(supply);
         }
 
-        // POST: api/Supplies
+        
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Models.ViewModels.SupplyCreateModel supply)
         {
@@ -68,7 +68,7 @@ namespace EquipmentSupply.API.Controllers
 
         }
 
-        // PUT: api/Supplies/5
+
         [HttpPut("{id:long}")]
         public async Task<IActionResult> Put([FromRoute]long id, [FromBody]Models.ViewModels.SupplyModifyModel supply)
         {
@@ -91,7 +91,6 @@ namespace EquipmentSupply.API.Controllers
             return BadRequest(ModelState);
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> Delete([FromRoute]long id)
         {

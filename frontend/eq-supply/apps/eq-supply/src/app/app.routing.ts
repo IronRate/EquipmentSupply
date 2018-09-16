@@ -14,11 +14,11 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'supplies/lived',
+    path: 'supplies/:state',
     component: SuppliesComponent
   },
   {
-    path: 'supplies/removed',
+    path: 'supplies/:state',
     component: SuppliesComponent
   },
   {

@@ -19,19 +19,21 @@ namespace EquipmentSupply.DAL.Repositories
         {
         }
 
-        public async Task<IEnumerable<Supply>> GetAllExtendedAsync()
+        public async Task<IEnumerable<Supply>> GetAllExtendedAsync(bool isRemoved)
         {
-            return await context.Supplies.Select(x => new Supply
-            {
-                Count = x.Count,
-                EquipmentTypeId = x.EquipmentTypeId,
-                EquipmentTypeName = x.EquipmentType.Name,
-                Id = x.Id,
-                IsDelete = x.IsDelete,
-                ProvideDate = x.ProvideDate,
-                ProviderId = x.ProviderId,
-                ProviderName = x.Provider.Name
-            }).ToListAsync();
+            return await context.Supplies
+                .Where(x => x.IsDelete == isRemoved)
+                .Select(x => new Supply
+                {
+                    Count = x.Count,
+                    EquipmentTypeId = x.EquipmentTypeId,
+                    EquipmentTypeName = x.EquipmentType.Name,
+                    Id = x.Id,
+                    IsDelete = x.IsDelete,
+                    ProvideDate = x.ProvideDate,
+                    ProviderId = x.ProviderId,
+                    ProviderName = x.Provider.Name
+                }).ToListAsync();
         }
 
         public Task<Supply> GetExtendedAsync(long id)

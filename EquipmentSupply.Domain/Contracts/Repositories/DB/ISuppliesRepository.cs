@@ -8,7 +8,7 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
 {
     public interface ISuppliesRepository:IDbRepository<Models.DB.Supply,long>
     {
-        Task<IEnumerable<Models.DB.Supply>> GetAllExtendedAsync();
+        Task<IEnumerable<Models.DB.Supply>> GetAllExtendedAsync(bool isRemoved);
 
         Task<Supply> GetExtendedAsync(long id);
 

@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import {
   SuppliesRepository,
   ISupplyItem
@@ -16,12 +17,19 @@ import { MatDialog } from '@angular/material';
 })
 export class SuppliesComponent implements OnInit, OnDestroy {
   public data: ISupplyItem[];
-  public currentRow:RowNode;
+  public currentRow: RowNode;
   private ngUnsubscribe: Subject<void> = new Subject();
-  constructor(private supplies: SuppliesRepository,private dialog:MatDialog) {}
+  public currentState: number;
+
+  constructor(
+    private supplies: SuppliesRepository,
+    private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.fetch();
+    //this.fetch();
+    this.initRouter();
   }
 
   ngOnDestroy() {
@@ -30,14 +38,17 @@ export class SuppliesComponent implements OnInit, OnDestroy {
   }
 
   fetch() {
-    this.supplies
-      .getAll()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe({
-        next: x => {
-          this.data = x;
-        }
-      });
+    let q: Observable<ISupplyItem[]>;
+    if (this.currentState == 1) {
+      q = this.supplies.getLeaved();
+    } else {
+      q = this.supplies.getRemoved();
+    }
+    q.takeUntil(this.ngUnsubscribe).subscribe({
+      next: x => {
+        this.data = x;
+      }
+    });
   }
 
   addHandler() {
@@ -88,5 +99,13 @@ export class SuppliesComponent implements OnInit, OnDestroy {
       .subscribe({ next: () => this.fetch() });
   }
 
-
+  private initRouter() {
+    this.activatedRoute.params
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((params: Params) => {
+        this.currentState =
+          params['state'] || this.activatedRoute.snapshot.data.state;
+        this.fetch();
+      });
+  }
 }

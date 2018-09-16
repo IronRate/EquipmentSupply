@@ -33,7 +33,7 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// Вернет все поставки
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Models.DB.Supply>> GetAllAsync();
+        Task<IEnumerable<Models.DB.Supply>> GetAllAsync(bool isRemoved);
 
         /// <summary>
         /// Вернет поставку по идентификатору

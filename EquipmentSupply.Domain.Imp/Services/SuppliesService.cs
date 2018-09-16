@@ -62,9 +62,9 @@ namespace EquipmentSupply.Domain.Imp.Services
 
         }
 
-        public Task<IEnumerable<Supply>> GetAllAsync()
+        public Task<IEnumerable<Supply>> GetAllAsync(bool isRemoved)
         {
-            return unitOfWork.Supplies.GetAllExtendedAsync();
+            return unitOfWork.Supplies.GetAllExtendedAsync(isRemoved);
         }
 
         public Task<Supply> GetAsync(long id)
