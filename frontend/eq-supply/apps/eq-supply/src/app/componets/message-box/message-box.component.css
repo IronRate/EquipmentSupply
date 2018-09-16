@@ -1,0 +1,7 @@
+.actions{
+  display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+  flex-direction: row;
+  justify-content:center;
+}

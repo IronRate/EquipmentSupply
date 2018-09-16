@@ -77,6 +77,7 @@ import { ReportEquipmentsComponent } from './componets/reports/report-equipments
 import { ReportProvidersComponent } from './componets/reports/report-providers/report-providers.component';
 import { ReportsService } from './services/backend/reports.service';
 import { AgPeriodsFilterComponent } from './componets/ag-periods-filter/ag-periods-filter.component';
+import { MessageBoxComponent } from './componets/message-box/message-box.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { AgPeriodsFilterComponent } from './componets/ag-periods-filter/ag-perio
     SuppliesGridComponent,
     ReportEquipmentsComponent,
     ReportProvidersComponent,
-    AgPeriodsFilterComponent
+    AgPeriodsFilterComponent,
+    MessageBoxComponent
   ],
   imports: [
     BrowserModule,

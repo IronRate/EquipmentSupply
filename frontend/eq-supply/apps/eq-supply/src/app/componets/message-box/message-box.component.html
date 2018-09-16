@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{data.caption}}</h2>
+<mat-dialog-content>{{data.text}}</mat-dialog-content>
+<div>
+  <div class="actions">
+    <button mat-button color="primary" *ngIf="visible(1)" (click)="onButton(1)">Ок</button>
+    <button mat-button color="primary" *ngIf="visible(4)" (click)="onButton(4)">Да</button>
+    <button mat-button color="primary" *ngIf="visible(8)" (click)="onButton(8)">Нет</button>
+    <button mat-button color="primary" *ngIf="visible(2)" (click)="onButton(2)">Отмена</button>
+  </div>
+</div>
+
