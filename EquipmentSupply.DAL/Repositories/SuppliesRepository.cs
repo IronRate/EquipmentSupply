@@ -30,7 +30,7 @@ namespace EquipmentSupply.DAL.Repositories
             {
                 q = q.Where(x => x.ProvideDate >= dateFrom && x.ProvideDate <= dateTo);
             }
-            q.Select(x => new Supply
+            q=q.Select(x => new Supply
             {
                 Count = x.Count,
                 EquipmentTypeId = x.EquipmentTypeId,

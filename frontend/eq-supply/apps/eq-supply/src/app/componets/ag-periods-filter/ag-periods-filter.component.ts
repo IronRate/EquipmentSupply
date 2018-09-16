@@ -59,8 +59,8 @@ export class AgPeriodsFilterComponent implements OnInit, IFilterAngularComp {
     }
   }
 
-  public commitHandler(){
-    this.params.filterChangedCallback();
+  public clearHandler(){
+    this.form.reset();
   }
 
   private createForm() {
@@ -72,7 +72,7 @@ export class AgPeriodsFilterComponent implements OnInit, IFilterAngularComp {
       .debounceTime(1000)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(x => {
-        this.commitHandler();
+        this.params.filterChangedCallback();
       });
   }
 }
