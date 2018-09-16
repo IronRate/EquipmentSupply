@@ -35,7 +35,7 @@ export class SupplyEditDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private data: ISupplyItem,
+    @Inject(MAT_DIALOG_DATA) public data: ISupplyItem,
     private providers: ProvidersRepository,
     private equipments: EquipmentsRepository
   ) {}
@@ -103,5 +103,9 @@ export class SupplyEditDialogComponent implements OnInit, OnDestroy {
 
   supplyRemoveHandler(i: number) {
     (<FormArray>this.form.get('supplies')).removeAt(i);
+  }
+
+  get supplyControls(){
+    return (<FormArray>this.form.controls['supplies']).controls;
   }
 }

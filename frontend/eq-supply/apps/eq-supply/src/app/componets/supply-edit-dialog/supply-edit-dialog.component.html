@@ -20,7 +20,7 @@
       </div>
 
       <div formArrayName="supplies" style="width:100%" fxLayout="row wrap">
-        <form [formGroup]="form" *ngFor="let form of form.get('supplies').controls; let i = index" style="width:100%"
+        <form [formGroup]="form" *ngFor="let form of supplyControls; let i = index" style="width:100%"
           fxLayoutGap="10px">
           <mat-form-field fxFlex="70">
             <input matInput formControlName="equipment" placeholder="Вид оборудования" required [matAutocomplete]="autoEquipments"

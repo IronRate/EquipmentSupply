@@ -33,15 +33,6 @@ namespace EquipmentSupply.API.Controllers
             var supplies = await this.suppliesService.GetAllAsync(isRemoved,new Domain.Models.DatePeriod(dateFrom,dateTo));
             return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
         }
-
-
-        //[HttpGet(Name ="GetByDate")]
-        //public async Task<IActionResult> Get([FromQuery] DateTimeOffset dateFrom, [FromQuery] DateTimeOffset? dateTo = null)
-        //{
-        //    var supplies = await this.suppliesService.GetAsync(new Domain.Models.DatePeriod(dateFrom, dateTo));
-        //    return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
-        //}
-
         
         [HttpGet("{id:long}")]
         public async Task<IActionResult> Get([FromRoute]long id)

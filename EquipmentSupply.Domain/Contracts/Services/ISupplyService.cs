@@ -42,12 +42,6 @@ namespace EquipmentSupply.Domain.Contracts.Services
         /// <returns></returns>
         Task<Models.DB.Supply> GetAsync(long id);
 
-        /// <summary>
-        /// Вернет список поставок в указаный период времени
-        /// </summary>
-        /// <param name="datePeriod"></param>
-        /// <returns></returns>
-        Task<IEnumerable<Models.DB.Supply>> GetAsync(Models.DatePeriod datePeriod);
 
         /// <summary>
         /// Создает поставки в хранилище

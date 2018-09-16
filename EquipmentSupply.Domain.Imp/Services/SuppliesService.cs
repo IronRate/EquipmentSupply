@@ -72,11 +72,6 @@ namespace EquipmentSupply.Domain.Imp.Services
             return unitOfWork.Supplies.GetExtendedAsync(id);
         }
 
-        public Task<IEnumerable<Supply>> GetAsync(DatePeriod datePeriod)
-        {
-            return unitOfWork.Supplies.FindAsync(x => x.ProvideDate >= datePeriod.DateTimeFrom && x.ProvideDate <= datePeriod.DateTimeTo);
-        }
-
         public async Task ModifyAsync(Supply supply)
         {
             if (supply == null)
