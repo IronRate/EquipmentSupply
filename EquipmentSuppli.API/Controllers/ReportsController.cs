@@ -17,6 +17,11 @@ namespace EquipmentSupply.API.Controllers
             this.equipmentReport = equipmentReport;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get() {
+            return Ok();
+        }
+
 
         [HttpGet("providers/{providerId:long}/equipments")]
         public async Task<IActionResult> Get([FromRoute]long providerId)

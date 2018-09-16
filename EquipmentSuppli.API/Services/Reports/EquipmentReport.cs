@@ -15,9 +15,15 @@ namespace EquipmentSupply.API.Services.Reports
             this.viewContext = viewContext;
         }
 
-        public async Task<IEnumerable<EquipmentSupply.API.Models.Reports.EquipmentReportModel>> GetAsync(long providerId) {
+        public async Task<IEnumerable<EquipmentSupply.API.Models.Reports.EquipmentReportModel>> GetAsync(long providerId)
+        {
             return await this.viewContext.Supplies.Where(x => x.ProviderId == providerId && x.IsDelete == false)
-                .Select(x=>new Models.Reports.EquipmentReportModel() { })
+               .GroupBy(x => x.EquipmentType)
+                .Select(x => new Models.Reports.EquipmentReportModel()
+                {
+                    EquipmentType = new Models.ViewModels.EquipmentTypeModel(x.Key),
+                    Count = x.Sum(z => z.Count)
+                })
                 .ToListAsync();
         }
     }

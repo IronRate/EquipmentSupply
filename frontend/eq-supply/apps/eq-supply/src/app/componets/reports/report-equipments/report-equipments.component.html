@@ -1,5 +1,13 @@
 <div>
   <mat-toolbar>
     <span>Аналитика по видам оборудования</span>
+    <mat-form-field fxFlex="70">
+        <input type="text" matInput placeholder="Поставщик" [matAutocomplete]="auto"
+          required>
+      </mat-form-field>
+
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProvider">
+        <mat-option *ngFor="let provider of filteredProviders | async" [value]="provider">{{provider.name}}</mat-option>
+      </mat-autocomplete>
   </mat-toolbar>
-</div>>
+</div>
