@@ -1,3 +1,4 @@
+import { ErrorAnalyzerService } from './../../services/error-analyzer.service';
 import { EquipmentEditDialogComponent } from './../equipment-edit-dialog/equipment-edit-dialog.component';
 import {
   EquipmentsRepository,
@@ -5,7 +6,7 @@ import {
 } from './../../services/backend/equipment.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { RowNode } from 'ag-grid';
 import { MessageBox } from '../message-box/message-box.component';
 
@@ -22,7 +23,9 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
   constructor(
     private equipments: EquipmentsRepository,
     private dialog: MatDialog,
-    private messageBox: MessageBox
+    private messageBox: MessageBox,
+    private errorAnalyzer: ErrorAnalyzerService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -39,7 +42,10 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .getAll()
       .takeUntil(this.ngUnsubscribe)
       .subscribe({
-        next: x => (this.data = x)
+        next: x => (this.data = x),
+        error: ex => {
+          this.errorHandler(ex);
+        }
       });
   }
 
@@ -48,8 +54,10 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .open(EquipmentEditDialogComponent, { width: '50%' })
       .afterClosed()
       .takeUntil(this.ngUnsubscribe)
-      .subscribe((x: IEquipmentItem) => {
-        if (x) this.saveProviderItem(x);
+      .subscribe({
+        next: (x: IEquipmentItem) => {
+          if (x) this.saveProviderItem(x);
+        }
       });
   }
 
@@ -88,6 +96,9 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
     obs.takeUntil(this.ngUnsubscribe).subscribe({
       next: () => {
         this.fetch();
+      },
+      error: ex => {
+        this.errorHandler(ex);
       }
     });
   }
@@ -99,7 +110,17 @@ export class EquipmentsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.fetch();
+        },
+        error: ex => {
+          this.errorHandler(ex);
         }
       });
+  }
+
+  private errorHandler(ex) {
+    if (ex) {
+      const error = this.errorAnalyzer.get(ex,true);
+      this.snackBar.open(error.message, 'Ошибка', { duration: 5000 });
+    }
   }
 }

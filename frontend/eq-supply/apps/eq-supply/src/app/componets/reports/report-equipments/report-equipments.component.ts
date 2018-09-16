@@ -1,12 +1,20 @@
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ReportsService, IEquipmentReportItem } from './../../../services/backend/reports.service';
+import {
+  ReportsService,
+  IEquipmentReportItem
+} from './../../../services/backend/reports.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatInput, MatAutocompleteSelectedEvent } from '@angular/material';
+import {
+  MatInput,
+  MatAutocompleteSelectedEvent,
+  MatSnackBar
+} from '@angular/material';
 import { ProvidersRepository } from './../../../services/backend/providers.servise';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { IProviderItem } from '../../../services/backend/providers.servise';
+import { ErrorAnalyzerService } from '../../../services/error-analyzer.service';
 
 @Component({
   selector: 'app-report-equipments',
@@ -22,14 +30,16 @@ export class ReportEquipmentsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private providers: ProvidersRepository,
-    private reports: ReportsService
+    private reports: ReportsService,
+    private errorAnalyzer: ErrorAnalyzerService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
     this.createForm();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -50,8 +60,13 @@ export class ReportEquipmentsComponent implements OnInit, OnDestroy {
     this.reports
       .getEquipmentsReport(this.form.value.provider.id)
       .takeUntil(this.ngUnsubscribe)
-      .subscribe(x => {
-        this.data = x;
+      .subscribe({
+        next: x => {
+          this.data = x;
+        },
+        error: ex => {
+          this.errorHandler(ex);
+        }
       });
   }
 
@@ -65,5 +80,12 @@ export class ReportEquipmentsComponent implements OnInit, OnDestroy {
       .subscribe(newValue => {
         this.searchProviders(newValue);
       });
+  }
+
+  private errorHandler(ex) {
+    if (ex) {
+      const error = this.errorAnalyzer.get(ex, true);
+      this.snackBar.open(error.message, 'Ошибка', { duration: 5000 });
+    }
   }
 }

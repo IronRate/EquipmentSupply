@@ -9,7 +9,8 @@ import { Subject, Observable } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { RowNode } from 'ag-grid';
 import { SupplyEditDialogComponent } from '../supply-edit-dialog/supply-edit-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { ErrorAnalyzerService } from '../../services/error-analyzer.service';
 
 @Component({
   selector: 'app-supplies',
@@ -31,7 +32,9 @@ export class SuppliesComponent implements OnInit, OnDestroy {
     private supplies: SuppliesRepository,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
-    private messageBox: MessageBox
+    private messageBox: MessageBox,
+    private errorAnalyzer: ErrorAnalyzerService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -52,8 +55,9 @@ export class SuppliesComponent implements OnInit, OnDestroy {
       this.filterDate.dateTo
     );
     q.takeUntil(this.ngUnsubscribe).subscribe({
-      next: x => {
-        this.data = x;
+      next: x => (this.data = x),
+      error: ex => {
+        this.errorHandler(ex);
       }
     });
   }
@@ -69,9 +73,11 @@ export class SuppliesComponent implements OnInit, OnDestroy {
   }
 
   removeHandler() {
-    this.messageBox.confirm('Удаление', 'Вы действительно хотите удалить поставку?').subscribe(x => {
-      this.removeProviderItem(this.currentRow.data);
-    });
+    this.messageBox
+      .confirm('Удаление', 'Вы действительно хотите удалить поставку?')
+      .subscribe(x => {
+        this.removeProviderItem(this.currentRow.data);
+      });
   }
 
   editHandler() {
@@ -103,14 +109,24 @@ export class SuppliesComponent implements OnInit, OnDestroy {
     } else {
       obs = this.supplies.add(x);
     }
-    obs.takeUntil(this.ngUnsubscribe).subscribe({ next: () => this.fetch() });
+    obs.takeUntil(this.ngUnsubscribe).subscribe({
+      next: () => this.fetch(),
+      error: ex => {
+        this.errorHandler(ex);
+      }
+    });
   }
 
   private removeProviderItem(x: ISupplyItem) {
     this.supplies
       .remove(x.id)
       .takeUntil(this.ngUnsubscribe)
-      .subscribe({ next: () => this.fetch() });
+      .subscribe({
+        next: () => this.fetch(),
+        error: ex => {
+          this.errorHandler(ex);
+        }
+      });
   }
 
   private initRouter() {
@@ -121,5 +137,12 @@ export class SuppliesComponent implements OnInit, OnDestroy {
           params['state'] || this.activatedRoute.snapshot.data.state;
         this.fetch();
       });
+  }
+
+  private errorHandler(ex) {
+    if (ex) {
+      const error = this.errorAnalyzer.get(ex, true);
+      this.snackBar.open(error.message, 'Ошибка', { duration: 5000 });
+    }
   }
 }
