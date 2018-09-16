@@ -82,6 +82,10 @@ export class SuppliesComponent implements OnInit, OnDestroy {
     this.currentRow = $event;
   }
 
+  filterChangedHandler(filter: any) {
+    debugger;
+  }
+
   private saveProviderItem(x: ISupplyItem) {
     let obs: Observable<object>;
     if (x.id) {

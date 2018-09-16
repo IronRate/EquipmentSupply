@@ -1,3 +1,4 @@
+import { AgPeriodsFilterComponent } from './../ag-periods-filter/ag-periods-filter.component';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ISupplyItem } from '../../services/backend/supplies.service';
@@ -8,17 +9,18 @@ import { RowNode, GridOptions } from 'ag-grid';
   selector: 'app-supplies-grid',
   templateUrl: './supplies-grid.component.html',
   styleUrls: ['./supplies-grid.component.css'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class SuppliesGridComponent implements OnInit {
   @Input() data: ISupplyItem[];
   @Output() rowSelect: Subject<RowNode> = new Subject();
+  @Output() filterChanged: Subject<any> = new Subject();
 
   columnDefs: any[];
   gridOptions: GridOptions;
   private selectedGridRow: RowNode;
 
-  constructor(private datePipe:DatePipe) {}
+  constructor(private datePipe: DatePipe) {}
 
   ngOnInit() {
     this.initGrid();
@@ -33,38 +35,33 @@ export class SuppliesGridComponent implements OnInit {
         suppressFilter: true
       },
       {
-        headerName:'Дата поставки',
-        field:'provideDate',
-        cellRenderer:params=>{
-          return this.datePipe.transform(params.value,'dd.MM.yyyy')
-        }
+        headerName: 'Дата поставки',
+        field: 'provideDate',
+        cellRenderer: params => {
+          return this.datePipe.transform(params.value, 'dd.MM.yyyy');
+        },
+        filterFramework: AgPeriodsFilterComponent
       },
       {
         headerName: 'Поставщик',
         suppressSizeToFit: true,
         field: 'provider.name',
-        // cellRenderer: params => {
-        //   return `<a>${params.value}</a>`;
-        // },
-        // filterFramework: AgTextFilterComponent,
-        // filterParams: { placeholder: 'Организация' },
-        suppressSorting: true
+        suppressSorting: true,
+        suppressFilter: true
       },
       {
         headerName: 'Вид оборудования',
         field: 'equipmentType.name',
         width: 100,
-        // filterFramework: AgTextFilterComponent,
-        // filterParams: { placeholder: "ИНН", pattern: /^(\d{10}|00\d{10})&/, maxLength: 12, minLength: 10 },
-        suppressSorting: true
+        suppressSorting: true,
+        suppressFilter: true
       },
       {
         headerName: 'Количество',
         field: 'count',
         width: 100,
-        //filterFramework: AgTextFilterComponent,
-        //filterParams: { placeholder: 'Телефон' },
-        suppressSorting: true
+        suppressSorting: true,
+        suppressFilter: true
       }
     ];
     return columnDefs;
@@ -91,7 +88,11 @@ export class SuppliesGridComponent implements OnInit {
         //this.fetch();
       },
       onFilterChanged: params => {
-        //this.fetch();
+        const filter: any =
+          this.gridOptions && this.gridOptions.api
+            ? this.gridOptions.api.getFilterModel()
+            : undefined;
+        this.filterChanged.next(filter);
       },
       getRowClass: params => {
         switch (params.data.state) {

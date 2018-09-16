@@ -1,5 +1,5 @@
 <div>
   <app-toolbar title="Поставки" (refresh)="fetch()" (add)="addHandler()" (edit)="editHandler()" (remove)="removeHandler()" [row]="currentRow">
   </app-toolbar>
-  <app-supplies-grid [data]="data" (rowSelect)="rowSelectHandler($event)"></app-supplies-grid>
+  <app-supplies-grid [data]="data" (rowSelect)="rowSelectHandler($event)" (filterChanged)="filterChangedHandler($event)"></app-supplies-grid>
 </div>

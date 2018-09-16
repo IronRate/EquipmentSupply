@@ -76,6 +76,7 @@ import { SuppliesGridComponent } from './componets/supplies-grid/supplies-grid.c
 import { ReportEquipmentsComponent } from './componets/reports/report-equipments/report-equipments.component';
 import { ReportProvidersComponent } from './componets/reports/report-providers/report-providers.component';
 import { ReportsService } from './services/backend/reports.service';
+import { AgPeriodsFilterComponent } from './componets/ag-periods-filter/ag-periods-filter.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ReportsService } from './services/backend/reports.service';
     ToolbarComponent,
     SuppliesGridComponent,
     ReportEquipmentsComponent,
-    ReportProvidersComponent
+    ReportProvidersComponent,
+    AgPeriodsFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +126,7 @@ import { ReportsService } from './services/backend/reports.service';
     MatExpansionModule,
     MatProgressBarModule,
     NgxMaskModule.forRoot(),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([AgPeriodsFilterComponent])
   ],
   entryComponents:[
     ProviderEditDialogComponent,

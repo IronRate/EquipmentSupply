@@ -1,0 +1,13 @@
+<form [formGroup]="form" fxLayout="column" fxLayoutGap="10px" style="padding:10px">
+  <mat-form-field fxFlex="100">
+    <input matInput [matDatepicker]="pickerFrom" placeholder="Дата с" [max]="form.controls['dateTo'].value" formControlName="dateFrom">
+    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="100">
+    <input matInput [matDatepicker]="pickerTo" placeholder="Дата по" [max]="maxDate"  formControlName="dateTo">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+  </mat-form-field>
+</form>
