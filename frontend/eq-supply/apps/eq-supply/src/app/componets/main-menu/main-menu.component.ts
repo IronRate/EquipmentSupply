@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import {takeUntil} from 'rxjs/operator/takeUntil';
+import { takeUntil } from 'rxjs/operator/takeUntil';
 
 export interface IMenuItem {
   name: string;
@@ -86,39 +86,51 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       {
         name: 'supplies',
         text: 'Поставки',
-        url:'/supplies',
-        items:[
+        url: '/supplies',
+        items: [
           {
-            name:'supplies/lived',
-            text:'Текущие',
-            url:'/supplies/lived'
+            name: 'supplies/lived',
+            text: 'Текущие',
+            url: '/supplies/lived'
           },
           {
-            name:'supplies/removed',
-            text:'Удаленые',
-            url:'/supplies/removed'
+            name: 'supplies/removed',
+            text: 'Удаленые',
+            url: '/supplies/removed'
           }
         ]
       },
       {
-        name:'reports',
-        text:'Отчеты',
-        expanded:false,
-      }
-      ,{
-        name:'directories',
-        text:'Справочники',
-        expanded:false,
-        items:[
+        name: 'reports',
+        text: 'Отчеты',
+        expanded: false,
+        items: [
           {
-            name:'providers',
-            text:'Поставщики'
-            ,url:'directories/providers'
+            name: 'reports/equipments',
+            text: 'Виды оборудования',
+            url: 'reports/equipments'
+          },
+          {
+            name: 'reports/providers',
+            text: 'Поставщики',
+            url: 'reports/providers'
           }
-          ,{
-            name:'equipments',
-            text:'Оборудование'
-            ,url:'directories/equipments'
+        ]
+      },
+      {
+        name: 'directories',
+        text: 'Справочники',
+        expanded: false,
+        items: [
+          {
+            name: 'providers',
+            text: 'Поставщики',
+            url: 'directories/providers'
+          },
+          {
+            name: 'equipments',
+            text: 'Оборудование',
+            url: 'directories/equipments'
           }
         ]
       }

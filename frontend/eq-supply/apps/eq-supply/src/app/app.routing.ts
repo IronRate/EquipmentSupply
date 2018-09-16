@@ -1,9 +1,11 @@
 import { EquipmentsComponent } from './componets/equipments/equipments.component';
 import { ProvidersComponent } from './componets/providers/providers.component';
-import { ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SuppliesComponent } from './componets/supplies/supplies.component';
 import { componentFactoryName } from '@angular/compiler';
+import { ReportEquipmentsComponent } from './componets/reports/report-equipments/report-equipments.component';
+import { ReportProvidersComponent } from './componets/reports/report-providers/report-providers.component';
 
 export const routes: Routes = [
   {
@@ -16,16 +18,24 @@ export const routes: Routes = [
     component: SuppliesComponent
   },
   {
-    path:'supplies/removed',
-    component:SuppliesComponent
+    path: 'supplies/removed',
+    component: SuppliesComponent
   },
   {
-    path:'directories/providers',
-    component:ProvidersComponent
+    path: 'directories/providers',
+    component: ProvidersComponent
   },
   {
-    path:'directories/equipments'
-    ,component:EquipmentsComponent
+    path: 'directories/equipments',
+    component: EquipmentsComponent
+  },
+  {
+    path: 'reports/equipments',
+    component:ReportEquipmentsComponent
+  },
+  {
+    path: 'reports/providers',
+    component: ReportProvidersComponent
   },
   {
     path: '**',

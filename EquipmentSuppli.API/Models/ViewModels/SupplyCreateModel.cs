@@ -13,11 +13,23 @@ namespace EquipmentSupply.API.Models.ViewModels
 
         }
 
+        /// <summary>
+        /// Поставщик
+        /// </summary>
         [Required]
         public ProviderModel Provider { get; set; }
 
+        /// <summary>
+        /// Поставки
+        /// </summary>
         [Required]
         public List<SupplyCreateRowModel> Supplies { get; set; }
+
+        /// <summary>
+        /// Дата поставки
+        /// </summary>
+        [Required]
+        public DateTimeOffset ProvideDate { get; set; }
 
 
         public class SupplyCreateRowModel

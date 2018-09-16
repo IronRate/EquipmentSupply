@@ -16,10 +16,10 @@ namespace EquipmentSupply.Domain.Models.DB
 
         }
 
-        public Supply(long providerId,long equipmentTypeId,long count)
+        public Supply(long providerId,long equipmentTypeId,DateTimeOffset provideDate,long count)
         {
             Id = 0;
-            ProvideDate = DateTimeOffset.Now;
+            ProvideDate = provideDate;
             ProviderId = providerId;
             EquipmentTypeId = equipmentTypeId;
             Count = count;

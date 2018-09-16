@@ -12,6 +12,7 @@ export class ToolbarComponent implements OnInit {
   @Output() edit: Subject<void> = new Subject();
   @Output() remove: Subject<void> = new Subject();
   @Input() row:any;
+  @Input() title:string;
 
   constructor() {}
 

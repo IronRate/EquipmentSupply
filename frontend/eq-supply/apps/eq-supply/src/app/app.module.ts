@@ -73,6 +73,8 @@ import { ProvidersGridComponent } from './componets/providers-grid/providers-gri
 import { EquipmentsGridComponent } from './componets/equipments-grid/equipments-grid.component';
 import { ToolbarComponent } from './componets/toolbar/toolbar.component';
 import { SuppliesGridComponent } from './componets/supplies-grid/supplies-grid.component';
+import { ReportEquipmentsComponent } from './componets/reports/report-equipments/report-equipments.component';
+import { ReportProvidersComponent } from './componets/reports/report-providers/report-providers.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,9 @@ import { SuppliesGridComponent } from './componets/supplies-grid/supplies-grid.c
     ProvidersGridComponent,
     EquipmentsGridComponent,
     ToolbarComponent,
-    SuppliesGridComponent
+    SuppliesGridComponent,
+    ReportEquipmentsComponent,
+    ReportProvidersComponent
   ],
   imports: [
     BrowserModule,

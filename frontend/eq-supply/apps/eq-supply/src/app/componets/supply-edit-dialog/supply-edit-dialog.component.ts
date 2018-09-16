@@ -49,6 +49,7 @@ export class SupplyEditDialogComponent implements OnInit, OnDestroy {
   createForm() {
     this.form = this.fb.group({
       provider: [null, [Validators.required]],
+      provideDate:[null,[Validators.required]],
       supplies: new FormArray([])
     });
 

@@ -60,7 +60,7 @@ namespace EquipmentSupply.API.Controllers
 
             if (ModelState.IsValid)
             {
-                var dbSupplies = supply.Supplies.Select(x => new Domain.Models.DB.Supply(supply.Provider.Id.GetValueOrDefault(), x.Equipment.Id.GetValueOrDefault(), x.Count));
+                var dbSupplies = supply.Supplies.Select(x => new Domain.Models.DB.Supply(supply.Provider.Id.GetValueOrDefault(), x.Equipment.Id.GetValueOrDefault(),supply.ProvideDate, x.Count));
                 await this.suppliesService.CreateRangeAsync(dbSupplies);
                 return Ok();
             }
