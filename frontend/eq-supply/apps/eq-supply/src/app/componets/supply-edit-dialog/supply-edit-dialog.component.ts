@@ -58,8 +58,6 @@ export class SupplyEditDialogComponent implements OnInit, OnDestroy {
       .subscribe(newValue => {
         this.searchProviders(newValue);
       });
-
-      var c=this.form.controls.supplies;
       this.addHandler();
   }
 

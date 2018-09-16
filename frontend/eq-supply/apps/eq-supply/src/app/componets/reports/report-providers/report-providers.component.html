@@ -1,3 +1,30 @@
-<p>
-  report-providers works!
-</p>
+<div>
+  <mat-toolbar>
+    <span>Аналитика поставщиков</span>
+  </mat-toolbar>
+  <div>
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th>
+              Поставщик
+            </th>
+            <th>
+              % поставки от общего объема
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of data">
+            <td>
+              {{row.provider.name}}
+            </td>
+            <td>
+              {{row.percentage}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

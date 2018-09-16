@@ -1,13 +1,41 @@
 <div>
   <mat-toolbar>
     <span>Аналитика по видам оборудования</span>
-    <mat-form-field fxFlex="70">
-        <input type="text" matInput placeholder="Поставщик" [matAutocomplete]="auto"
-          required>
+  </mat-toolbar>
+  <div>
+    <form style="width:100%" [formGroup]="form">
+      <mat-form-field fxFlex="70">
+        <input type="text" matInput placeholder="Поставщик" [matAutocomplete]="auto" required formControlName="provider">
       </mat-form-field>
-
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProvider">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnProvider" (optionSelected)="providerSelected($event)">
         <mat-option *ngFor="let provider of filteredProviders | async" [value]="provider">{{provider.name}}</mat-option>
       </mat-autocomplete>
-  </mat-toolbar>
+    </form>
+
+  </div>
+  <div>
+    <table class="table">
+
+      <thead>
+        <tr>
+          <th>
+            Тип оборудования
+          </th>
+          <th>
+            Количество (шт.)
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data">
+          <td>
+            {{row.equipmentType.name}}
+          </td>
+          <td>
+            {{row.count}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

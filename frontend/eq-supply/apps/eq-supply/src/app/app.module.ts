@@ -75,6 +75,7 @@ import { ToolbarComponent } from './componets/toolbar/toolbar.component';
 import { SuppliesGridComponent } from './componets/supplies-grid/supplies-grid.component';
 import { ReportEquipmentsComponent } from './componets/reports/report-equipments/report-equipments.component';
 import { ReportProvidersComponent } from './componets/reports/report-providers/report-providers.component';
+import { ReportsService } from './services/backend/reports.service';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,7 @@ import { ReportProvidersComponent } from './componets/reports/report-providers/r
     SuppliesRepository,
     EquipmentsRepository,
     ProvidersRepository,
-    //AuthGuard,
+    ReportsService,
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
     {
       provide: DateAdapter,
@@ -142,7 +143,6 @@ import { ReportProvidersComponent } from './componets/reports/report-providers/r
       deps: [MAT_DATE_LOCALE]
     },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-    //Loader,
     {
       provide: MatPaginatorIntl,
       useFactory: () => {
