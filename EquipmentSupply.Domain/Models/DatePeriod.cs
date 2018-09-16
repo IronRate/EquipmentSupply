@@ -12,8 +12,8 @@ namespace EquipmentSupply.Domain.Models
 
         #region Fields
 
-        private readonly DateTimeOffset _dateFrom;
-        private readonly DateTimeOffset _dateTo;
+        private readonly DateTimeOffset? _dateFrom;
+        private readonly DateTimeOffset? _dateTo;
 
         #endregion
 
@@ -22,30 +22,37 @@ namespace EquipmentSupply.Domain.Models
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="dateTimeFrom">дата с</param>
-        /// <param name="dateTimeTo">дата по (если не указать то берется текущее время)</param>
-        public DatePeriod(DateTimeOffset dateTimeFrom, DateTimeOffset? dateTimeTo = null)
+        /// <param name="dateFrom">дата с</param>
+        /// <param name="dateTo">дата по (если не указать то берется текущее время)</param>
+        public DatePeriod(DateTimeOffset? dateFrom, DateTimeOffset? dateTo = null)
         {
-            if (dateTimeTo==null)
+            if (!dateFrom.HasValue && !dateTo.HasValue)
             {
-                dateTimeTo = DateTimeOffset.Now;
-            }
-
-            /*
-             Защита от дурака, на случай, если да С будет больше даты ПО
-             */ 
-            if (dateTimeTo < dateTimeFrom)
-            {
-                this._dateFrom = dateTimeTo.Value;
-                this._dateTo = dateTimeFrom;
+                
             }
             else
             {
-                this._dateFrom = dateTimeFrom;
-                this._dateTo = dateTimeTo.Value;
+                if (dateFrom == null)
+                {
+                    dateFrom = DateTimeOffset.MinValue;
+                }
+
+                if (dateTo == null)
+                {
+                    dateTo = DateTimeOffset.Now;
+                }
+                dateTo = dateTo.Value.AddDays(1);
+
+                if (dateFrom > dateTo)
+                {
+                    var a = dateTo;
+                    dateTo = dateFrom;
+                    dateFrom = a;
+                }
             }
             ////////////////////////////////////////////////////////////////
-
+            this._dateFrom = dateFrom;
+            this._dateTo = dateTo;
 
         }
 
@@ -67,10 +74,15 @@ namespace EquipmentSupply.Domain.Models
         /// <summary>
         /// Дата с
         /// </summary>
-        public DateTimeOffset DateTimeFrom { get => _dateFrom; }
+        public DateTimeOffset? DateTimeFrom { get => _dateFrom; }
 
         //Дата по
-        public DateTimeOffset DateTimeTo { get => _dateTo; }
+        public DateTimeOffset? DateTimeTo { get => _dateTo; }
+
+        /// <summary>
+        /// Признак того, что значения пустые
+        /// </summary>
+        public bool IsEmpty { get => !(_dateTo.HasValue && _dateTo.HasValue); }
 
         #endregion
     }

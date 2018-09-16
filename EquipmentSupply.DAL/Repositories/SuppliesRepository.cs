@@ -19,18 +19,17 @@ namespace EquipmentSupply.DAL.Repositories
         {
         }
 
-        public async Task<IEnumerable<Supply>> GetAllExtendedAsync(bool isRemoved, DateTimeOffset? dateFrom, DateTimeOffset? dateTo)
+        public async Task<IEnumerable<Supply>> GetAllExtendedAsync(bool isRemoved, Domain.Models.DatePeriod datePeriod)
         {
-
+            //Сделано так, но можно улучшить фильтрацию по дате
 
             var q = context.Supplies
                 .Where(x => x.IsDelete == isRemoved);
-
-            if (dateFrom.HasValue && dateTo.HasValue)
+            if (!datePeriod.IsEmpty)
             {
-                q = q.Where(x => x.ProvideDate >= dateFrom && x.ProvideDate <= dateTo);
+                q = q.Where(x => x.ProvideDate >= datePeriod.DateTimeFrom && x.ProvideDate <= datePeriod.DateTimeTo);
             }
-            q=q.Select(x => new Supply
+            q = q.Select(x => new Supply
             {
                 Count = x.Count,
                 EquipmentTypeId = x.EquipmentTypeId,

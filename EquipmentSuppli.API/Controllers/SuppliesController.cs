@@ -30,7 +30,7 @@ namespace EquipmentSupply.API.Controllers
         public async Task<IActionResult> Get([FromQuery] bool isRemoved = false, [FromQuery] DateTimeOffset? dateFrom = null, [FromQuery] DateTimeOffset? dateTo=null)
         {
 
-            var supplies = await this.suppliesService.GetAllAsync(isRemoved,dateFrom,dateTo);
+            var supplies = await this.suppliesService.GetAllAsync(isRemoved,new Domain.Models.DatePeriod(dateFrom,dateTo));
             return Ok(supplies.Select(x => new Models.ViewModels.SupplyModel(x)));
         }
 
