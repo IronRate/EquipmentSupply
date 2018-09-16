@@ -45,7 +45,8 @@ namespace EquipmentSupply.API
 
             services.AddSingleton<Domain.Contracts.Repositories.IConfigRepository, Services.ConfigurationRepository>();
             services.AddScoped<Domain.Contracts.Services.INotificationSender, Services.NotificationSender>();
-            services.AddScoped<Services.Reports.EquipmentReport>();
+            services.AddScoped<Services.Reports.EquipmentsReportService>();
+            services.AddScoped<Services.Reports.ProvidersReportService>();
 
             services.AddScoped<Domain.Contracts.Services.INotificationWorkerService, Domain.Imp.Services.NotificationWorkerService>();
             services.AddScoped<Domain.Contracts.Services.ISupplyService, Domain.Imp.Services.SuppliesService>();
