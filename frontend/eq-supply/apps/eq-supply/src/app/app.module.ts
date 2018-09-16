@@ -77,7 +77,8 @@ import { ReportEquipmentsComponent } from './componets/reports/report-equipments
 import { ReportProvidersComponent } from './componets/reports/report-providers/report-providers.component';
 import { ReportsService } from './services/backend/reports.service';
 import { AgPeriodsFilterComponent } from './componets/ag-periods-filter/ag-periods-filter.component';
-import { MessageBoxComponent } from './componets/message-box/message-box.component';
+import { MessageBoxComponent, MessageBox } from './componets/message-box/message-box.component';
+import { ErrorAnalyzerService } from './services/error-analyzer.service';
 
 @NgModule({
   declarations: [
@@ -133,13 +134,17 @@ import { MessageBoxComponent } from './componets/message-box/message-box.compone
   entryComponents:[
     ProviderEditDialogComponent,
     EquipmentEditDialogComponent,
-    SupplyEditDialogComponent
+    SupplyEditDialogComponent,
+    MessageBoxComponent
+
   ],
   providers: [
     SuppliesRepository,
     EquipmentsRepository,
     ProvidersRepository,
     ReportsService,
+    MessageBox,
+    ErrorAnalyzerService,
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
     {
       provide: DateAdapter,

@@ -6,6 +6,7 @@ import { Subject, Observable } from 'rxjs';
 import { RowNode } from 'ag-grid';
 import { MatDialog } from '@angular/material';
 import { ProviderEditDialogComponent } from '../provider-edit-dialog/provider-edit-dialog.component';
+import { MessageBox } from '../message-box/message-box.component';
 
 @Component({
   selector: 'app-providers',
@@ -19,7 +20,8 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
   constructor(
     private providers: ProvidersRepository,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private messageBox: MessageBox
   ) {}
 
   ngOnInit() {
@@ -51,7 +53,11 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   removeHandler() {
-    this.removeProviderItem(this.currentRow.data);
+    this.messageBox
+      .confirm('Удвление', 'Вы действительно хотите удалить поставщика')
+      .subscribe(() => {
+        this.removeProviderItem(this.currentRow.data);
+      });
   }
 
   editHandler() {

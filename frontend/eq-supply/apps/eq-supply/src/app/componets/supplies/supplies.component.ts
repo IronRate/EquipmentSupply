@@ -1,3 +1,4 @@
+import { MessageBox } from './../message-box/message-box.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {
   SuppliesRepository,
@@ -29,7 +30,8 @@ export class SuppliesComponent implements OnInit, OnDestroy {
   constructor(
     private supplies: SuppliesRepository,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private messageBox: MessageBox
   ) {}
 
   ngOnInit() {
@@ -44,7 +46,11 @@ export class SuppliesComponent implements OnInit, OnDestroy {
 
   fetch() {
     let q: Observable<ISupplyItem[]>;
-    q = this.supplies.getExtended(this.currentState == 1 ? false : true,this.filterDate.dateFrom,this.filterDate.dateTo);
+    q = this.supplies.getExtended(
+      this.currentState == 1 ? false : true,
+      this.filterDate.dateFrom,
+      this.filterDate.dateTo
+    );
     q.takeUntil(this.ngUnsubscribe).subscribe({
       next: x => {
         this.data = x;
@@ -63,7 +69,9 @@ export class SuppliesComponent implements OnInit, OnDestroy {
   }
 
   removeHandler() {
-    this.removeProviderItem(this.currentRow.data);
+    this.messageBox.confirm('Удаление', 'Вы действительно хотите удалить поставку?').subscribe(x => {
+      this.removeProviderItem(this.currentRow.data);
+    });
   }
 
   editHandler() {
