@@ -182,7 +182,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
         public async Task ModifyAsync_GoodParams_ReturnOk()
         {
             //Arrange
-            ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<SuppliesUnitOfWork>();
+            ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
             Supply supply = new Supply(1, 1, DateTimeOffset.Now, 10)
             {
@@ -194,6 +194,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
 
             //Act
             SuppliesService suppliesService = new SuppliesService(suppliesUnitOfWorkStub);
+            //await suppliesService.CreateAsync(supply);
 
             //Assert
             Exception ex = await Record.ExceptionAsync(() => suppliesService.ModifyAsync(supply));

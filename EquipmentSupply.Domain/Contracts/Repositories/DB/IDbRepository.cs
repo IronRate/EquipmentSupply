@@ -61,11 +61,6 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         /// <param name="entities"></param>
         void RemoveRange(IEnumerable<TEntity> entities);
 
-        /// <summary>
-        /// Помечает список сущностей как удаленные
-        /// </summary>
-        /// <param name="entities"></param>
-        void RemoveRange(ICollection<TEntity> entities);
 
         /// <summary>
         /// Помечает сущность как удаленную, находя ее в хранилище по ключу
@@ -95,14 +90,7 @@ namespace EquipmentSupply.Domain.Contracts.Repositories.DB
         /// <returns></returns>
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
 
-        //Task AddAsync(TEntity entity);
-        //Task AddRangeAsync(IEnumerable<TEntity> entity);
-
-        //Task RemoveAsync(TEntity entity);
-        //Task RemoveRangeAsync(IEnumerable<TEntity> entities);
-        //Task RemoveRangeAsync(ICollection<TEntity> entities);
-
-        //Task RemoveAsync(TKey id);
+        
 
         /// <summary>
         /// Вернет количество записией
