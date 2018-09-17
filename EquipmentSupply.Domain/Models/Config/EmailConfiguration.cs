@@ -73,6 +73,11 @@ namespace EquipmentSupply.Domain.Models.Config
         /// </summary>
         public bool UseNTLM { get; set; }
 
+        /// <summary>
+        /// Использовать SSL
+        /// </summary>
+        public bool EnableSSL { get; set; }
+
 
         #endregion
 

@@ -26,11 +26,7 @@ namespace EquipmentSupply.Domain.Models
         /// <param name="dateTo">дата по (если не указать то берется текущее время)</param>
         public DatePeriod(DateTimeOffset? dateFrom, DateTimeOffset? dateTo = null)
         {
-            if (!dateFrom.HasValue && !dateTo.HasValue)
-            {
-                
-            }
-            else
+            if(dateFrom.HasValue || dateTo.HasValue)
             {
                 if (dateFrom == null)
                 {

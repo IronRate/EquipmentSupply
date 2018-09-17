@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿#region
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+#endregion
 
 namespace EquipmentSupply.API.Services
 {
@@ -14,7 +16,7 @@ namespace EquipmentSupply.API.Services
     {
         private readonly Domain.Contracts.Repositories.IConfigRepository configRepository;
 
-
+        #region Constrcutor
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -24,6 +26,8 @@ namespace EquipmentSupply.API.Services
             this.configRepository = configRepository;
         }
 
+        #endregion
+
 
         public async Task<bool> SendAsync(object data)
         {
@@ -32,36 +36,46 @@ namespace EquipmentSupply.API.Services
 
             try
             {
-                body=JsonConvert.SerializeObject(data);
+                body = JsonConvert.SerializeObject(data);
             }
             catch (Exception)
             {
                 return false;
             }
 
+            bool result = false;
+            using (SmtpClient smtpClient = new SmtpClient(config.SmtpServer, (int)config.Port))
+            {
+                smtpClient.EnableSsl = config.EnableSSL;
+                if (!string.IsNullOrWhiteSpace(config.Password))
+                {
+                    smtpClient.Credentials = new System.Net.NetworkCredential(config.Login, config.Password);
+                }
 
-            SmtpClient smtpClient = new SmtpClient(config.SmtpServer, (int)config.Port);
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(config.EmailFrom);
-            mailMessage.To.Add(config.EmailTo);
-            mailMessage.Body =body;
-            mailMessage.Subject = "Notification";
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(config.EmailFrom);
+                mailMessage.To.Add(config.EmailTo);
+                mailMessage.Body = body;
+                mailMessage.Subject = "Notification";
 
-            try
-            {
-                smtpClient.Send(mailMessage);
-                return true;
+                try
+                {
+
+                    await smtpClient.SendMailAsync(mailMessage);
+                    result = true;
+
+                }
+                catch (SmtpException smtpEx)
+                {
+
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
-            catch (SmtpException smtpEx)
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            return false;
-            
+            return result;
+
         }
     }
 }
