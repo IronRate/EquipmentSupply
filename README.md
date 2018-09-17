@@ -18,6 +18,12 @@
 | EquipmentSupply.Domain.Impl | Реализация базовой логики решения | Реализация сервисов бизнес-логики  |
 | frontend/eq-supply| Web клиент | ||
 
+## Тесты
+|  Сборка  Описание|   |
+| ------------ | ------------ |
+|  test/API/EquipmentSupply.API.UnitTests | Тесты контроллеров API   |
+| test/DAL/EquipmentSupply.DAL.UnitTests  | Тестирование UnityOfWork   |
+| test/Domain/EquipmentSupply.Domain.Imp.UnitTests | Тестирование бизнес-логики приложения ||
 
 
 ## Сборка Web клиента
@@ -37,7 +43,7 @@ npm install
 npm run buid
 ```
 
-## Сборка Web приложения
+## Сборка и запус Web приложения
 
 - Установить [.NET Core](https://www.microsoft.com/net/download ".NET Core")
 ```
