@@ -31,5 +31,5 @@ npm install -g @nrwl/schematics
 ```
 cd .\frontend\eq-supply
 npm install
-npm run buid
+npm run build
 ```
