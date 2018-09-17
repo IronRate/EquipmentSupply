@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentSupply", "EquipmentSupply\EquipmentSupply.csproj", "{484340B7-0A3F-4CB4-A0B4-BB39C142B5B2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{3B2D3AAE-D5A0-43D2-867F-39C77D0516A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentSupply.DAL", "EquipmentSupply.DAL\EquipmentSupply.DAL.csproj", "{BFEF97FF-9114-4A7F-9D3E-AE8D72EDBF93}"
@@ -41,10 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{484340B7-0A3F-4CB4-A0B4-BB39C142B5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{484340B7-0A3F-4CB4-A0B4-BB39C142B5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{484340B7-0A3F-4CB4-A0B4-BB39C142B5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{484340B7-0A3F-4CB4-A0B4-BB39C142B5B2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFEF97FF-9114-4A7F-9D3E-AE8D72EDBF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFEF97FF-9114-4A7F-9D3E-AE8D72EDBF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFEF97FF-9114-4A7F-9D3E-AE8D72EDBF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
