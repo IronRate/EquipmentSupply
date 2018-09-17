@@ -7,6 +7,7 @@
   - Язык разработки fronend - TypeScrypt ([Angular](https://angular.io/))
   - CSS Framework [Angular Material](https://material.angular.io/)
   - СУБД - MS SQL
+  - Тестирование - [Xunit](https://xunit.github.io/ "Xunit"), Mocking - [NSubstitution](http://nsubstitute.github.io/help/getting-started/ "NSubstitution")
 
 ## Техническое описание
 | Сборка | Назначение  | Описание  |
@@ -16,6 +17,8 @@
 | EquipmentSupply.Domain | Базовая логика решения | Модели и контракты  |
 | EquipmentSupply.Domain.Impl | Реализация базовой логики решения | Реализация сервисов бизнес-логики  |
 | frontend/eq-supply| Web клиент | ||
+
+
 
 ## Сборка Web клиента
 
@@ -31,5 +34,14 @@ npm install -g @nrwl/schematics
 ```
 cd .\frontend\eq-supply
 npm install
-npm run build
+npm run buid
+```
+
+## Сборка Web приложения
+
+- Установить [.NET Core](https://www.microsoft.com/net/download ".NET Core")
+```
+dotnet restore EquipmentSupply.API
+dotnet build EquipmentSupply.API
+dotnet EquipmentSupply.API
 ```
