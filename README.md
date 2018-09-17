@@ -17,7 +17,7 @@
 | EquipmentSupply.Domain.Impl | Реализация базовой логики решения | Реализация сервисов бизнес-логики  |
 | frontend/eq-supply| Web клиент | ||
 
-## Как собрать
+## Сборка Web клиента
 
 - Установить [Node.js](https://nodejs.org/ "Node.js")
 - Установить [angular-cli](https://cli.angular.io/ "angular-cli")
@@ -27,4 +27,9 @@ npm install -g @angular/cli
 - Установить [nrwl](https://nrwl.io/nx "nrwl")
 ```
 npm install -g @nrwl/schematics
+```
+```
+cd .\frontend\eq-supply
+npm install
+npm run buid
 ```
