@@ -19,7 +19,7 @@
 | frontend/eq-supply| Web клиент | ||
 
 ## Тесты
-|  Сборка  Описание|   |
+|  Сборка  | Описание  |
 | ------------ | ------------ |
 |  test/API/EquipmentSupply.API.UnitTests | Тесты контроллеров API   |
 | test/DAL/EquipmentSupply.DAL.UnitTests  | Тестирование UnityOfWork   |
