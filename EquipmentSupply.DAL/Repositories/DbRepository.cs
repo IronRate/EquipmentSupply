@@ -125,14 +125,6 @@ namespace EquipmentSupply.DAL.Repositories
             }
         }
 
-        public void RemoveRange(ICollection<TEntity> entities)
-        {
-            if (entities != null)
-            {
-                this.context.Set<TEntity>().RemoveRange(entities);
-            }
-        }
-
         public async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
         {
             if (entities != null)
@@ -144,16 +136,7 @@ namespace EquipmentSupply.DAL.Repositories
             }
         }
 
-        public async Task RemoveRangeAsync(ICollection<TEntity> entities)
-        {
-            if (entities != null)
-            {
-                await Task.Run(() =>
-                {
-                    this.context.Set<TEntity>().RemoveRange(entities);
-                });
-            }
-        }
+       
 
 
 
