@@ -61,7 +61,7 @@ namespace EquipmentSupply.API
                 context.Database.Migrate();
             }
 
-
+            
 
             //Настройка нативного хоста
             services.AddHostedService<Services.NotificationSenderHost>();
@@ -86,9 +86,10 @@ namespace EquipmentSupply.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-            app.UseDefaultFiles();
-            app.UseStaticFiles(); 
+
+            app.UseFileServer();
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles(); 
 
             app.UseExceptionHandler(new ExceptionHandlerOptions
             {
