@@ -37,7 +37,16 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             //Arrange
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
-            Supply supply = new Supply {Id = 5};
+            Supply supply = new Supply
+            {
+                Id = 1,
+                Count = 1,
+                ProvideDate = DateTimeOffset.Now,
+                Provider = new Provider() { Name = "Лютик" },
+                EquipmentType = new EquipmentType("Молоток"),
+                ProviderId = 1,
+                EquipmentTypeId = 1
+            };
 
 
             //Act
@@ -87,12 +96,15 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
             suppliesUnitOfWorkStub.Supplies.GetAllExtendedAsync(Arg.Any<bool>(), Arg.Any<DatePeriod>())
-                .Returns(info => new List<Supply> {new Supply {Id = 5, EquipmentTypeName = "Наименование"}});
+                .Returns(info => new List<Supply> { new Supply(1,1,DateTimeOffset.Now,10) {
+                    Id = 1,Provider=new Provider(){Name="Лютик" },
+                    EquipmentType=new EquipmentType("Молоток")
+                } });
 
 
             //Act
             IEnumerable<Supply> supplies = await new SuppliesService(suppliesUnitOfWorkStub)
-                .GetAllAsync(true, new DatePeriod(DateTimeOffset.Now));
+                .GetAllAsync(true, null);
 
             //Assert
             Assert.Single(supplies);
@@ -105,7 +117,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
             suppliesUnitOfWorkStub.Supplies.GetExtendedAsync(Arg.Any<long>())
-                .Returns(info => (Supply) null);
+                .Returns(info => (Supply)null);
 
 
             //Act
@@ -123,7 +135,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
             suppliesUnitOfWorkStub.Supplies.GetExtendedAsync(Arg.Any<long>())
-                .Returns(info => new Supply {Id = 5, EquipmentTypeName = "Наименование"});
+                .Returns(info => new Supply { Id = 5, EquipmentTypeName = "Наименование" });
 
 
             //Act
@@ -141,7 +153,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
             suppliesUnitOfWorkStub.Supplies.GetExtendedAsync(Arg.Any<long>())
-                .Returns(info => new Supply {Id = 5, EquipmentTypeName = "Наименование"});
+                .Returns(info => new Supply { Id = 5, EquipmentTypeName = "Наименование" });
 
 
             //Act
@@ -172,7 +184,13 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             //Arrange
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<SuppliesUnitOfWork>();
 
-            Supply supply = new Supply {Id = 5, EquipmentTypeName = "Наименование", IsDelete = false};
+            Supply supply = new Supply(1, 1, DateTimeOffset.Now, 10)
+            {
+                Id = 1,
+                IsDelete = false,
+                Provider=new Provider() {Name="Лютик" },
+                EquipmentType = new EquipmentType("Молоток")
+            };
 
             //Act
             SuppliesService suppliesService = new SuppliesService(suppliesUnitOfWorkStub);
@@ -189,7 +207,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             //Arrange
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
-            Supply supply = new Supply {Id = 5, EquipmentTypeName = "Наименование", IsDelete = true};
+            Supply supply = new Supply { Id = 5, EquipmentTypeName = "Наименование", IsDelete = true };
 
             //Act
             SuppliesService suppliesService = new SuppliesService(suppliesUnitOfWorkStub);
@@ -204,7 +222,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             //Arrange
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
-            Supply supply = new Supply {Id = 5, EquipmentTypeName = "Наименование", IsDelete = true};
+            Supply supply = new Supply { Id = 5, EquipmentTypeName = "Наименование", IsDelete = true };
 
             //Act
             SuppliesService suppliesService = new SuppliesService(suppliesUnitOfWorkStub);
@@ -239,7 +257,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             //Arrange
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
-            Supply supply = new Supply {Id = 5, EquipmentTypeName = "Наименование"};
+            Supply supply = new Supply { Id = 5, EquipmentTypeName = "Наименование" };
 
             //Act
             SuppliesService suppliesService = new SuppliesService(suppliesUnitOfWorkStub);
@@ -257,7 +275,7 @@ namespace EquipmentSupply.Domain.Imp.UnitTests.Services
             //Arrange
             ISuppliesUnitOfWork suppliesUnitOfWorkStub = Substitute.For<ISuppliesUnitOfWork>();
 
-            Supply supply = new Supply {Id = 5, EquipmentTypeName = "Наименование"};
+            Supply supply = new Supply { Id = 5, EquipmentTypeName = "Наименование" };
 
             //Act
             await new SuppliesService(suppliesUnitOfWorkStub).RemoveAsync(supply);

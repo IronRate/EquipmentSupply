@@ -57,7 +57,7 @@ namespace EquipmentSupply.DAL.UnitTests.Repositories
 
 
             //Act
-            bool hasForProvider = await suppliesUnitOfWork.Supplies.HasForProvider(new Provider {Id = providerId});
+            bool hasForProvider = await suppliesUnitOfWork.Supplies.HasForProvider(new Provider { Id = providerId });
 
 
             //Assert
@@ -119,7 +119,14 @@ namespace EquipmentSupply.DAL.UnitTests.Repositories
             SuppliesUnitOfWork suppliesUnitOfWork =
                 Substitute.ForPartsOf<SuppliesUnitOfWork>(new DbSuppliesContextFake());
 
-            suppliesUnitOfWork.Supplies.Add(new Supply(1, 1, DateTimeOffset.Now, 10) {IsDelete = true});
+            //suppliesUnitOfWork.Providers.Add(new Provider() { Name = "ООО Лютик" });
+            //suppliesUnitOfWork.EqupmentTypes.Add(new EquipmentType("Молоток"));
+            suppliesUnitOfWork.Supplies.Add(new Supply(1, 1, DateTimeOffset.Now, 10)
+            {
+                IsDelete = true,
+                Provider = new Provider() { Name = "ООО Лютик" },
+                EquipmentType = new EquipmentType("Молоток")
+            });
 
             await suppliesUnitOfWork.CommitAsync();
 
@@ -160,8 +167,18 @@ namespace EquipmentSupply.DAL.UnitTests.Repositories
             SuppliesUnitOfWork suppliesUnitOfWork =
                 Substitute.ForPartsOf<SuppliesUnitOfWork>(new DbSuppliesContextFake());
 
-            suppliesUnitOfWork.Supplies.Add(new Supply(1, 1, DateTimeOffset.Now, 10));
-            suppliesUnitOfWork.Supplies.Add(new Supply(5, 5, DateTimeOffset.Now, 10));
+            suppliesUnitOfWork.Supplies.Add(new Supply(1, 1, DateTimeOffset.Now, 10)
+            {
+                Provider = new Provider() { Name = "Лютик" }
+                ,
+                EquipmentType = new EquipmentType("Молоток")
+            });
+            suppliesUnitOfWork.Supplies.Add(new Supply(5, 5, DateTimeOffset.Now, 10)
+            {
+                Provider = new Provider() { Name = "Рога и Копыта" }
+                ,
+                EquipmentType = new EquipmentType("Ножницы")
+            });
 
             await suppliesUnitOfWork.CommitAsync();
 
@@ -181,7 +198,11 @@ namespace EquipmentSupply.DAL.UnitTests.Repositories
             SuppliesUnitOfWork suppliesUnitOfWork =
                 Substitute.ForPartsOf<SuppliesUnitOfWork>(new DbSuppliesContextFake());
 
-            suppliesUnitOfWork.Supplies.Add(new Supply(1, 1, DateTimeOffset.Now, 10));
+            suppliesUnitOfWork.Supplies.Add(new Supply(1, 1, DateTimeOffset.Now, 10)
+            {
+                Provider = new Provider() { Name = "Лютик" },
+                EquipmentType = new EquipmentType("Молоток")
+            });
 
             await suppliesUnitOfWork.CommitAsync();
 
@@ -230,7 +251,7 @@ namespace EquipmentSupply.DAL.UnitTests.Repositories
 
 
             //Act
-            bool hasForProvider = await suppliesUnitOfWork.Supplies.HasForProvider(new Provider {Id = 1});
+            bool hasForProvider = await suppliesUnitOfWork.Supplies.HasForProvider(new Provider { Id = 1 });
 
 
             //Assert
