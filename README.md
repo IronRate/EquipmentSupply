@@ -4,7 +4,7 @@
 ## Особенности
 
   - Язык разработки backend - c# (.NET Core)
-  - Язык разработки fronend - TypeScrypt ([Angular](https://angular.io/))
+  - Язык разработки frontend - TypeScript ([Angular](https://angular.io/))
   - CSS Framework [Angular Material](https://material.angular.io/)
   - СУБД - MS SQL
   - Тестирование - [Xunit](https://xunit.github.io/ "Xunit"), Mocking - [NSubstitution](http://nsubstitute.github.io/help/getting-started/ "NSubstitution")
